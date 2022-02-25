@@ -10,20 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	push_swap
+NAME	=	pipex
 
-SRC		=	push_swap_main.c \
-			push_swap_utils.c \
-			push_swap.c \
-			mv_push.c \
-			mv_rotate.c \
-			mv_swap.c \
-			small_sort.c \
-			bubble_sort.c \
-			bucket_sort.c \
-			quick_sort.c \
-			bucket_sort_rene.c \
-			print_stack.c
+SRC		=	pipex_main.c
+
+
 
 # INCL	=	push_swap.h
 
