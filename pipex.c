@@ -13,6 +13,8 @@
 #include "pipex.h"
 
 int	openfile (char *filename, int mode);
+void ft_error(int errno_num);
+
 
 
 int	main(int argc, char *argv[], char *envp[])
@@ -39,17 +41,12 @@ int	main(int argc, char *argv[], char *envp[])
 	close(outfile);
 
 	if (pipe(pipe_fd) == -1)
-	{
-		perror("Error at piping");
-		exit(EXIT_FAILURE);
-	}
+		ft_error(errno);		
 
 
 	if ((pid1 = fork()) == -1)
-	{
-		perror("Error at forking #1");
-		exit(EXIT_FAILURE);
-	}
+		ft_error(errno);		
+
 
 	if (pid1 == 0)
 	{
@@ -58,18 +55,13 @@ int	main(int argc, char *argv[], char *envp[])
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 		if (execlp("grep", "grep", "pipe", NULL) == -1)
-		{
-			perror("Error at exec grep");
-			exit(EXIT_FAILURE);
-		}
+			ft_error(errno);		
 	}
 	
 
 	if ((pid2 = fork()) == -1)
-	{
-		perror("Error at forking #2");
-		exit(EXIT_FAILURE);
-	}
+		ft_error(errno);		
+
 	if (pid2 == 0)
 	{
 		// Child process 2 (wc)
@@ -77,13 +69,9 @@ int	main(int argc, char *argv[], char *envp[])
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 		if (execlp("wc", "wc", "-l", NULL) == -1)
-		{
-			perror("Error at exec wc");
-			exit(EXIT_FAILURE);
-		}
-	}
+			ft_error(errno);		
 
-	
+	}
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	waitpid(pid1, NULL, 0);
@@ -99,30 +87,28 @@ int	openfile (char *filename, int mode)
 	if (mode == INFILE)
 	{
 		if (access(filename, F_OK) == -1)
-		{
-			perror("unable to open infile");
-			exit(EXIT_FAILURE);
-		}
+			ft_error(errno);		
+
 		if (access(filename, R_OK) == -1)
-		{
-			perror("unable to open infile");
-			exit(EXIT_FAILURE);
-		}
+			ft_error(errno);		
 		
 		if ((fd = open(filename, O_RDONLY)) == -1)
-		{
-			perror("unable to open infile");
-			exit(EXIT_FAILURE);
-		}
-		return (fd);
+			ft_error(errno);		
 	}
 	else
 	{
 		if ((fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0777)) == -1)
-		{
-			perror("unable to open/create outfile");
-			exit(EXIT_FAILURE);			
-		}
-				return (fd);
+			ft_error(errno);		
 	}
+	return (fd);
 }
+
+
+void ft_error(int errno_num)
+{
+	printf("Ärrno: %d\n", errno_num);
+	perror("unAble in fct ");
+	exit(EXIT_FAILURE);
+}
+
+
