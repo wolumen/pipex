@@ -12,6 +12,74 @@
 
 #include "pipex.h"
 
+int		openfile(char *filename, int mode);
+void	ft_error(int errno_num);
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	int	infile;
+	int	outfile;
+	int	pid1;
+	int	pid2;
+	int	pipe_fd[2];
+
+	if (argc != 5)
+	{
+		write(STDERR_FILENO, "ERROR ./pipex file1 \"cmd1\" \"cmd2\" file2\n", 67);
+		exit(EXIT_FAILURE);
+	}	
+
+	infile = openfile(argv[1], INFILE);
+	outfile = openfile(argv[4], OUTFILE);
+
+	//stdin und stdout ersetzten durch die files und alte fd für die files schließen
+	dup2(infile, STDIN_FILENO);
+	dup2(outfile, STDOUT_FILENO);
+	close(infile);
+	close(outfile);
+
+	if (pipe(pipe_fd) == -1)
+		ft_error(errno);
+
+
+	pid1 = fork();
+	if (pid1 == -1)
+		ft_error(errno);
+
+
+	if (pid1 == 0)
+	{
+		// Child process 1 (grep)
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		if (execlp("grep", "grep", "pipe", NULL) == -1)
+			ft_error(errno);
+	}
+	
+
+	pid2 = fork();
+	if (pid2 == -1)
+		ft_error(errno);
+
+	if (pid2 == 0)
+	{
+		// Child process 2 (wc)
+		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		if (execlp("wc", "wc", "-l", NULL) == -1)
+			ft_error(errno);
+
+	}
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
+	return (0);
+}
+
+
 int	openfile(char *filename, int mode)
 {
 	int	fd;
@@ -37,70 +105,12 @@ int	openfile(char *filename, int mode)
 	return (fd);
 }
 
+
 void	ft_error(int errno_num)
 {
-	printf("Errno: %d\n", errno_num);
-	perror("Error in fct ");
+	printf("Ärrno: %d\n", errno_num);
+	perror("unAble in fct ");
 	exit(EXIT_FAILURE);
 }
 
-void	ft_exec(char *cmd, char *envp[])
-{
-	char	**args;
-	char	*path;
 
-	args = str_split(cmd, ' ');
-	if (str_ichr(args[0], '/') > -1)
-		path = args[0];
-	else
-		path = getPath(args[0], envp);
-	execve(path, args, envp);			// programm endet hier wenn execve ausgeführt werden kann
-	ft_error(errno);
-}
-
-char	*getPath (char *cmd, char **env)
-{
-	char	*path;
-	char	*dir;
-	char	*bin;
-	int		i;
-
-	i = 0;
-	while (env[i] && str_ncmp(env[i], "PATH=", 5))
-		i++;
-	if (!env[i])
-		return (cmd);
-	path = env[i] + 5;
-	while (path && str_ichr(path, ':') > -1) 	// wenn : gefunden
-	{
-		dir = str_ndup(path, str_ichr(path, ':'));
-		bin = path_join(dir, cmd);
-		free(dir);
-		if (access(bin, F_OK) == 0)
-			return (bin);
-		free(bin);
-		path += str_ichr(path, ':') + 1;
-	}
-	return (cmd);
-}
-
-char	*path_join (char *path, char *bin)
-{
-	char	*joined;
-	int		i;
-	int		j;
-
-	joined = malloc(sizeof(char) * (str_ichr(path, 0) + str_ichr(bin, 0) + 2));
-	if (joined == NULL)
-		ft_error(errno);
-	i = 0;
-	j = 0;
-	while (path[j])
-		joined[i++] = path[j++];
-	joined[i++] = '/';
-	j = 0;
-	while (bin[j])
-		joined[i++] = bin[j++];
-	joined[i] = 0;
-	return (joined);
-}
