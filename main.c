@@ -21,7 +21,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int i;
 	int	j;
 
-	if (argc != 5)
+	if (argc < 5)
 	{
 		write(STDERR_FILENO, "ERROR ./pipex file1 \"cmd1\" \"cmd2\" file2\n", 67);
 		exit(EXIT_FAILURE);
@@ -109,18 +109,22 @@ int	main(int argc, char *argv[], char *envp[])
 
 
 	// close all unused pipes in a loop
-	j = 0;
-	while (j < COMMANDS - 1)
+	i = 0;
+	while (i < COMMANDS - 1)
 	{
-		close(pipe_fd[j][0]);					// kann ich das auch in einer Zeile ?
-		close(pipe_fd[j][1]);
-		j++;
+		close(pipe_fd[i][0]);					// kann ich das auch in einer Zeile ?
+		close(pipe_fd[i][1]);
+		i++;
 	}
 
 	// wait for the children in a loop
 	i = 0;
 	while(i < COMMANDS)
+	{	
 		wait(NULL); 
+		// waitpid(pids[i], NULL, 0);
+		i++;
+	}
 
 
 	return (0);
