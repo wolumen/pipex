@@ -29,7 +29,7 @@ char	**str_split (char *str, char sep)
 	}
 	tab = malloc(sizeof(char *) * (count + 2));
 	if (tab == NULL)
-		ft_error(errno);							// funktioniert Errno hier ? 
+		ft_error(errno, "malloc split");							// funktioniert Errno hier ? 
 	tab[count + 1] = NULL;							// NULL ans Ende des Arrays für execve
 	i = 0;
 	while (i < count + 1)
@@ -51,7 +51,7 @@ char	*str_ndup (char *str, unsigned int n)
 	i = 0;
 	duped = malloc(sizeof(char) * (n + 1));
 	if (duped == NULL)
-		ft_error(errno);
+		ft_error(errno, "malloc str_ndup");
 	while (i < n)
 		duped[i++] = *str++;
 	duped[n] = 0;

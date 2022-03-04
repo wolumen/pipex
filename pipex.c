@@ -19,27 +19,27 @@ int	openfile(char *filename, int mode)
 	if (mode == INFILE)
 	{
 		if (access(filename, F_OK) == -1)
-			ft_error(errno);
+			ft_error(errno, "access F_OK");
 
 		if (access(filename, R_OK) == -1)
-			ft_error(errno);
+			ft_error(errno, "access R_OK");
 
 		fd = open(filename, O_RDONLY);
 		if (fd == -1)
-			ft_error(errno);
+			ft_error(errno, "open INFILE");
 	}
 	else
 	{
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (fd == -1)
-			ft_error(errno);
+			ft_error(errno, "open OUTFILE");
 	}
 	return (fd);
 }
 
-void	ft_error(int errno_num)
+void	ft_error(int errno_num, char *str)
 {
-	printf("Errno: %d\n", errno_num);
+	printf("Errno: %d in fct %s\n", errno_num, str);
 	perror("Error in fct ");
 	exit(EXIT_FAILURE);
 }
@@ -55,7 +55,7 @@ void	ft_exec(char *cmd, char *envp[])
 	else
 		path = getPath(args[0], envp);
 	execve(path, args, envp);			// programm endet hier wenn execve ausgeführt werden kann
-	ft_error(errno);
+	ft_error(errno, "execve");
 }
 
 char	*getPath (char *cmd, char **env)
@@ -92,7 +92,7 @@ char	*path_join (char *path, char *bin)
 
 	joined = malloc(sizeof(char) * (str_ichr(path, 0) + str_ichr(bin, 0) + 2));
 	if (joined == NULL)
-		ft_error(errno);
+		ft_error(errno, "joined malloc");
 	i = 0;
 	j = 0;
 	while (path[j])
