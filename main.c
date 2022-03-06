@@ -12,14 +12,52 @@
 
 #include "pipex.h"
 
+
+void open_pipes(int pipe_fd[][2], int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (pipe(pipe_fd[i]) == -1)
+			ft_error(errno, "pipe");
+		i++;
+	}
+}
+	
+
+void	close_unused_pipes(int pipe_fd[][2], int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		close(pipe_fd[i][0]);
+		close(pipe_fd[i][1]);
+		i++;
+	}
+}
+
+void	change_std_io(char *infile, char *outfile)
+{
+	int	fd;
+
+	fd = openfile(infile, INFILE);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+
+	fd = openfile(outfile, OUTFILE);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
-	int	infile;
-	int	outfile;
 	int pids[COMMANDS];					// für jeden cmd ein child
 	int	pipe_fd[COMMANDS - 1][2];		// zwischen zwei cmd eine pipe
 	int i;
-	int	j;
 
 	if (argc < 5)
 	{
@@ -27,26 +65,10 @@ int	main(int argc, char *argv[], char *envp[])
 		exit(EXIT_FAILURE);
 	}	
 
-	infile = openfile(argv[1], INFILE);
-	outfile = openfile(argv[argc -1], OUTFILE);
-
-	//stdin und stdout ersetzten durch die files und alte fd für die files schließen
-	// ab hier Ausgabe ins OUTFILE!
-	dup2(infile, STDIN_FILENO);
-	dup2(outfile, STDOUT_FILENO);
-	close(infile);
-	close(outfile);
-
+	change_std_io(argv[1], argv[argc - 1]);
 
 	// pipes öffnen (eine weniger als cmds)
-	i = 0;
-	while (i < COMMANDS - 1)
-	{
-		if (pipe(pipe_fd[i]) == -1)
-			ft_error(errno, "pipe");
-		i++;
-	}
-
+	open_pipes(pipe_fd, COMMANDS - 1);
 
 	// processe erstellen (einen je cmd)
 	i = 0;
@@ -65,13 +87,7 @@ int	main(int argc, char *argv[], char *envp[])
 				// Child process 1
 				dup2(pipe_fd[i][1], STDOUT_FILENO);
 				// close all unused pipes in a loop
-				j = 0;
-				while (j < COMMANDS - 1)
-				{
-					close(pipe_fd[j][0]);					// kann ich das auch in einer Zeile ?
-					close(pipe_fd[j][1]);
-					j++;
-				}
+				close_unused_pipes(pipe_fd, COMMANDS - 1);
 				ft_exec(argv[i + 2], envp);				
 			}
 			else if (i == COMMANDS - 1)
@@ -79,13 +95,7 @@ int	main(int argc, char *argv[], char *envp[])
 				// Child process letzter
 				dup2(pipe_fd[i - 1][0], STDIN_FILENO);
 				// close all unused pipes in a loop
-				j = 0;
-				while (j < COMMANDS - 1)
-				{
-					close(pipe_fd[j][0]);					// kann ich das auch in einer Zeile ?
-					close(pipe_fd[j][1]);
-					j++;
-				}
+				close_unused_pipes(pipe_fd, COMMANDS - 1);
 				ft_exec(argv[i + 2], envp);				
 			}
 			else
@@ -94,13 +104,7 @@ int	main(int argc, char *argv[], char *envp[])
 				dup2(pipe_fd[i - 1][0], STDIN_FILENO);
 				dup2(pipe_fd[i][1], STDOUT_FILENO);
 				// close all unused pipes in a loop
-				j = 0;
-				while (j < COMMANDS - 1)
-				{
-					close(pipe_fd[j][0]);					// kann ich das auch in einer Zeile ?
-					close(pipe_fd[j][1]);
-					j++;
-				}
+				close_unused_pipes(pipe_fd, COMMANDS - 1);
 				ft_exec(argv[i + 2], envp);					
 			}
 		}
@@ -109,13 +113,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 
 	// close all unused pipes in a loop
-	i = 0;
-	while (i < COMMANDS - 1)
-	{
-		close(pipe_fd[i][0]);					// kann ich das auch in einer Zeile ?
-		close(pipe_fd[i][1]);
-		i++;
-	}
+	close_unused_pipes(pipe_fd, COMMANDS - 1);
 
 	// wait for the children in a loop
 	i = 0;
@@ -129,8 +127,6 @@ int	main(int argc, char *argv[], char *envp[])
 
 	return (0);
 }
-
-
 
 
 

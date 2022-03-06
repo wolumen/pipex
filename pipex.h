@@ -42,7 +42,6 @@ char	*getPath (char *cmd, char **env);
 int		str_ncmp (char *str1, char *str2, int n);
 char	*path_join (char *path, char *bin);
 
-int open_pipes(int argc);
 
 
 
