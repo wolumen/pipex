@@ -22,33 +22,29 @@
 # include <sys/stat.h>		// für S_IRWXU in open,
 # include <sys/types.h>
 # include <sys/wait.h>		// für waitpid
- 
-
 
 # define INFILE 0
 # define OUTFILE 1
 
-
-# define COMMANDS (argc - 3)
-
-
+// pipex.c
 int		openfile(char *filename, int mode);
+void	change_std_io(char *infile, char *outfile);
+int		**open_pipes(int size);
+void	process_forks(int **pipe_fd, int size, char *argv[], char *envp[]);
+// pipex_utils.c
 void	ft_error(int errno_num, char *str);
+int		**create_fd_array(int size);
+void	delete_fd_array(int **pipe_fd, int size);
+void	close_unused_pipes(int **pipe_fd, int size);
+// ft_exec.c
 void	ft_exec(char *cmd, char *envp[]);
-char	**str_split (char *str, char sep);
-char	*str_ndup (char *str, unsigned int n);
-int		str_ichr (char *str, char c);
-char	*getPath (char *cmd, char **env);
-int		str_ncmp (char *str1, char *str2, int n);
-char	*path_join (char *path, char *bin);
-
-
-
-
-
-
-
-
+char	*get_path(char *cmd, char **env);
+char	*path_join(char *path, char *bin);
+int		str_ichr(char *str, char c);
+// libft_utils.c
+char	**str_split(char *str, char sep);
+char	*str_ndup(char *str, unsigned int n);
+int		str_ncmp(char *str1, char *str2, int n);
 // enum error_handle
 // {
 // 	ARGS_ERR = -2,
@@ -56,8 +52,6 @@ char	*path_join (char *path, char *bin);
 // 	FORK_ERR = -4,
 // 	CMD_ERR = -5,
 // 	OPEN_ERR = -6,
-
 // };
-
 
 #endif

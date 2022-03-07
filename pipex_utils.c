@@ -5,77 +5,55 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpreissn <jpreissn@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/03 18:37:27 by jpreissn          #+#    #+#             */
-/*   Updated: 2022/03/03 18:37:27 by jpreissn         ###   ########.fr       */
+/*   Created: 2022/03/07 09:36:03 by jpreissn          #+#    #+#             */
+/*   Updated: 2022/03/07 09:36:03 by jpreissn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**str_split (char *str, char sep)
+void	ft_error(int errno_num, char *str)
 {
-	char	**tab;
-	int		count;
-	int		i;
-	int		j;
-
-
-	count = 0;
-	j = 0;
-	while (str[j])
-	{
-		if (str[j++] == sep)
-			count++;
-	}
-	tab = malloc(sizeof(char *) * (count + 2));
-	if (tab == NULL)
-		ft_error(errno, "malloc split");							// funktioniert Errno hier ? 
-	tab[count + 1] = NULL;							// NULL ans Ende des Arrays für execve
-	i = 0;
-	while (i < count + 1)
-	{
-		j = 0;
-		while (str[j] && str[j] != sep)
-			j++;
-		tab[i++] = str_ndup(str, j);
-		str = str + j + 1;
-	}
-	return (tab);
+	printf("Errno: %d in fct %s\n", errno_num, str);
+	perror("Error in fct ");
+	exit(EXIT_FAILURE);
 }
 
-char	*str_ndup (char *str, unsigned int n)
+int	**create_fd_array(int size)
 {
-	char				*duped;
-	unsigned int		i;
+	int	**pipe_fd;
+	int	i;
 
+	pipe_fd = (int **)malloc(size * sizeof(int));
+	if (!pipe_fd)
+		exit (EXIT_FAILURE);
 	i = 0;
-	duped = malloc(sizeof(char) * (n + 1));
-	if (duped == NULL)
-		ft_error(errno, "malloc str_ndup");
-	while (i < n)
-		duped[i++] = *str++;
-	duped[n] = 0;
-	return (duped);
+	while (i <= size)
+	{
+		pipe_fd[i] = (int *)malloc(2 * sizeof(int));
+		if (!pipe_fd)
+			exit (EXIT_FAILURE);
+		i++;
+	}
+	return (pipe_fd);
 }
 
-int	str_ichr (char *str, char c)
+void	delete_fd_array(int **pipe_fd, int size)
+{
+	while (size >= 0)
+		free(pipe_fd[size--]);
+	free(pipe_fd);
+}
+
+void	close_unused_pipes(int **pipe_fd, int size)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != c)
-		i++;
-	if (str[i] == c)
-		return (i);				// idx an der char erste mal gefunden
-	return (-1);				// wenn char nicht gefunden -1 zurück
-}
-
-int	str_ncmp (char *str1, char *str2, int n)
-{
-	while (--n > 0 && *str1 && *str2 && *str1 == *str2)
+	while (i <= size)
 	{
-		str1++;
-		str2++;
+		close(pipe_fd[i][0]);
+		close(pipe_fd[i][1]);
+		i++;
 	}
-	return (*str2 - *str1);
 }

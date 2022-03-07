@@ -20,10 +20,8 @@ int	openfile(char *filename, int mode)
 	{
 		if (access(filename, F_OK) == -1)
 			ft_error(errno, "access F_OK");
-
 		if (access(filename, R_OK) == -1)
 			ft_error(errno, "access R_OK");
-
 		fd = open(filename, O_RDONLY);
 		if (fd == -1)
 			ft_error(errno, "open INFILE");
@@ -37,70 +35,64 @@ int	openfile(char *filename, int mode)
 	return (fd);
 }
 
-void	ft_error(int errno_num, char *str)
+void	change_std_io(char *infile, char *outfile)
 {
-	printf("Errno: %d in fct %s\n", errno_num, str);
-	perror("Error in fct ");
-	exit(EXIT_FAILURE);
+	int	fd;
+
+	fd = openfile(infile, INFILE);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+
+	fd = openfile(outfile, OUTFILE);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
 }
 
-void	ft_exec(char *cmd, char *envp[])
+int	**open_pipes(int size)
 {
-	char	**args;
-	char	*path;
+	int	**pipe_fd;
+	int	i;
 
-	args = str_split(cmd, ' ');
-	if (str_ichr(args[0], '/') > -1)
-		path = args[0];
-	else
-		path = getPath(args[0], envp);
-	execve(path, args, envp);			// programm endet hier wenn execve ausgeführt werden kann
-	ft_error(errno, "execve");
-}
-
-char	*getPath (char *cmd, char **env)
-{
-	char	*path;
-	char	*dir;
-	char	*bin;
-	int		i;
-
+	pipe_fd = create_fd_array(size);
 	i = 0;
-	while (env[i] && str_ncmp(env[i], "PATH=", 5))
-		i++;
-	if (!env[i])
-		return (cmd);
-	path = env[i] + 5;
-	while (path && str_ichr(path, ':') > -1) 	// wenn : gefunden
+	while (i <= size)
 	{
-		dir = str_ndup(path, str_ichr(path, ':'));
-		bin = path_join(dir, cmd);
-		free(dir);
-		if (access(bin, F_OK) == 0)
-			return (bin);
-		free(bin);
-		path += str_ichr(path, ':') + 1;
+		if (pipe(pipe_fd[i]) == -1)
+			ft_error(errno, "pipe");
+		i++;
 	}
-	return (cmd);
+	return (pipe_fd);
 }
 
-char	*path_join (char *path, char *bin)
+void	process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 {
-	char	*joined;
-	int		i;
-	int		j;
+	int	*pids;
+	int	i;
 
-	joined = malloc(sizeof(char) * (str_ichr(path, 0) + str_ichr(bin, 0) + 2));
-	if (joined == NULL)
-		ft_error(errno, "joined malloc");
+	pids = (int *) malloc(size * sizeof(int));
+	if (!pids)
+		exit (EXIT_FAILURE);
 	i = 0;
-	j = 0;
-	while (path[j])
-		joined[i++] = path[j++];
-	joined[i++] = '/';
-	j = 0;
-	while (bin[j])
-		joined[i++] = bin[j++];
-	joined[i] = 0;
-	return (joined);
+	while (i < size)
+	{
+		pids[i] = fork();
+		if (pids[i] == -1)
+			ft_error(errno, "fork");
+		if (pids[i] == 0)
+		{
+			if (i == 0)
+				dup2(pipe_fd[i][1], STDOUT_FILENO);
+			else if (i == size - 1)
+				dup2(pipe_fd[i - 1][0], STDIN_FILENO);
+			else
+			{
+				dup2(pipe_fd[i - 1][0], STDIN_FILENO);
+				dup2(pipe_fd[i][1], STDOUT_FILENO);
+			}
+			close_unused_pipes(pipe_fd, size - 1);
+			ft_exec(argv[i + 2], envp);
+		}
+		i++;
+	}
+	free(pids);
 }
