@@ -45,6 +45,8 @@ int		str_ichr(char *str, char c);
 char	**str_split(char *str, char sep);
 char	*str_ndup(char *str, unsigned int n);
 int		str_ncmp(char *str1, char *str2, int n);
+void	redir_pipes(int **pipe_fd, int size, int i);
+
 // enum error_handle
 // {
 // 	ARGS_ERR = -2,

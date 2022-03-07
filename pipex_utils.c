@@ -45,6 +45,19 @@ void	delete_fd_array(int **pipe_fd, int size)
 	free(pipe_fd);
 }
 
+void	redir_pipes(int **pipe_fd, int size, int i)
+{
+	if (i == 0)
+		dup2(pipe_fd[i][1], STDOUT_FILENO);
+	else if (i == size - 1)
+		dup2(pipe_fd[i - 1][0], STDIN_FILENO);
+	else
+	{
+		dup2(pipe_fd[i - 1][0], STDIN_FILENO);
+		dup2(pipe_fd[i][1], STDOUT_FILENO);
+	}
+}
+
 void	close_unused_pipes(int **pipe_fd, int size)
 {
 	int	i;

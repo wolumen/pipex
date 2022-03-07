@@ -80,15 +80,7 @@ void	process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 			ft_error(errno, "fork");
 		if (pids[i] == 0)
 		{
-			if (i == 0)
-				dup2(pipe_fd[i][1], STDOUT_FILENO);
-			else if (i == size - 1)
-				dup2(pipe_fd[i - 1][0], STDIN_FILENO);
-			else
-			{
-				dup2(pipe_fd[i - 1][0], STDIN_FILENO);
-				dup2(pipe_fd[i][1], STDOUT_FILENO);
-			}
+			redir_pipes(pipe_fd, size, i);
 			close_unused_pipes(pipe_fd, size - 1);
 			ft_exec(argv[i + 2], envp);
 		}
