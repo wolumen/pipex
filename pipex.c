@@ -19,9 +19,15 @@ int	openfile(char *filename, int mode)
 	if (mode == INFILE)
 	{
 		if (access(filename, F_OK) == -1)
-			ft_error(errno, "access F_OK");
+		{
+			perror("access F_OK");
+			return (0);
+		}
 		if (access(filename, R_OK) == -1)
-			ft_error(errno, "access R_OK");
+		{
+			perror("access R_OK");
+			return (0);
+		}
 		fd = open(filename, O_RDONLY);
 		if (fd == -1)
 			ft_error(errno, "open INFILE");

@@ -40,7 +40,7 @@ void	close_unused_pipes(int **pipe_fd, int size);
 void	ft_exec(char *cmd, char *envp[]);
 char	*get_path(char *cmd, char **env);
 char	*path_join(char *path, char *bin);
-int		str_ichr(char *str, char c);
+int		chr_in_str(char *str, char c);
 // libft_utils.c
 char	**str_split(char *str, char sep);
 char	*str_ndup(char *str, unsigned int n);

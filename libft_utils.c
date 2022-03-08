@@ -26,10 +26,10 @@ char	**str_split(char *str, char sep)
 		if (str[j++] == sep)
 			count++;
 	}
-	tab = malloc(sizeof(char *) * (count + 2));
+	tab = malloc(sizeof(char *) * (count + 2));		// warum + 2 ? -> 1str mehr als Delimeter und +1 für NULL ans Ende setzen
 	if (tab == NULL)
 		ft_error(errno, "malloc split");			// funktioniert Errno hier ? 
-	tab[count + 1] = NULL;							// NULL ans Ende des Arrays für execve
+	tab[count + 1] = NULL;							// NULL ans Ende des Arrays für execve, + 1 weil Index beginnt bei 0
 	i = 0;
 	while (i < count + 1)
 	{
@@ -65,4 +65,7 @@ int	str_ncmp(char *str1, char *str2, int n)
 		str2++;
 	}
 	return (*str2 - *str1);
+	// RETRUN:
+	// 0	Die verglichenen Strings sind bis zum angegebenen Zeichen identisch
+	// <0>	Die verglichenen Strings sind nicht identisch
 }

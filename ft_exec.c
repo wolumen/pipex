@@ -18,7 +18,7 @@ void	ft_exec(char *cmd, char *envp[])
 	char	*path;
 
 	args = str_split(cmd, ' ');
-	if (str_ichr(args[0], '/') > -1)
+	if (chr_in_str(args[0], '/') > -1)
 		path = args[0];
 	else
 		path = get_path(args[0], envp);
@@ -39,17 +39,18 @@ char	*get_path(char *cmd, char **env)
 	if (!env[i])
 		return (cmd);
 	path = env[i] + 5;
-	while (path && str_ichr(path, ':') > -1)	// wenn : gefunden
+	while (path && chr_in_str(path, ':') > -1)	// wenn : gefunden
 	{
-		dir = str_ndup(path, str_ichr(path, ':'));
+		dir = str_ndup(path, chr_in_str(path, ':'));
 		bin = path_join(dir, cmd);
 		free(dir);
 		if (access(bin, F_OK) == 0)
 			return (bin);
 		free(bin);
-		path += str_ichr(path, ':') + 1;
+		path += chr_in_str(path, ':') + 1;
 	}
-	return (cmd);
+	// free irgendwas wenn cmd nicht existiert und return was??
+	exit(127);
 }
 
 char	*path_join(char *path, char *bin)
@@ -58,7 +59,7 @@ char	*path_join(char *path, char *bin)
 	int		i;
 	int		j;
 
-	joined = malloc(sizeof(char) * (str_ichr(path, 0) + str_ichr(bin, 0) + 2));
+	joined = malloc(sizeof(char) * (chr_in_str(path, 0) + chr_in_str(bin, 0) + 2));
 	if (joined == NULL)
 		ft_error(errno, "joined malloc");
 	i = 0;
@@ -73,7 +74,7 @@ char	*path_join(char *path, char *bin)
 	return (joined);
 }
 
-int	str_ichr(char *str, char c)
+int	chr_in_str(char *str, char c)
 {
 	int	i;
 
