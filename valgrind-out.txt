@@ -1,509 +1,152 @@
-==5087== Memcheck, a memory error detector
-==5087== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==5087== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
-==5087== Command: /usr/bin/grep mal
-==5087== Parent PID: 5085
-==5087== 
---5087-- 
---5087-- Valgrind options:
---5087--    --leak-check=full
---5087--    --show-leak-kinds=all
---5087--    --tool=memcheck
---5087--    --track-origins=yes
---5087--    --verbose
---5087--    --track-fds=yes
---5087--    --trace-children=yes
---5087--    --log-file=valgrind-out.txt
---5087-- Contents of /proc/version:
---5087--   Linux version 5.10.16.3-microsoft-standard-WSL2 (oe-user@oe-host) (x86_64-msft-linux-gcc (GCC) 9.3.0, GNU ld (GNU Binutils) 2.34.0.20200220) #1 SMP Fri Apr 2 22:23:49 UTC 2021
---5087-- 
---5087-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
---5087-- Page sizes: currently 4096, max supported 4096
---5087-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgri--5--5087-- Reading syms from /usr/bin/grep
---5087--    object doesn't have a symbol table
---5087-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
---5087--   Considering /usr/lib/x86_64-linux-gnu/ld-2.31.so ..
---5087--   .. CRC mismatch (computed 975d0390 wanted 30bd717f)
---5087--   Considering /lib/x86_64-linux-gnu/ld-2.31.so ..
---5087--   .. CRC mismatch (computed 975d0390 wanted 30bd717f)
---5087--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so ..
---5087--   .. CRC is v--508--5087-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
---5087--    object doesn't have a symbol table
---5087--    object doesn't have a dynamic symbol t--508--5087-- Scheduler: using generic scheduler lock implementation.
---5087-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
-==5087== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-5087-by-finelinux-on-???
-==5087== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-5087-by-finelinux-on-???
-==5087== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-5087-by-finelinux-on-???
-==5087== 
-==5087== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==5087== don't want to do, unless you know exactly what you're doing,
-==5087== or are doing some strange experiment):
-==5087==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=5087 ...command...
-==5087== 
-==5087== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==5087==   /path/to/gdb /usr/bin/grep
-==5087== and then give GDB the following command
-==5087==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=5087
-==5087== --pid is optional if only one valgrind process is running
-==5--5088---5087-- REDIR: 0x4022e10 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2--5088---5087-- REDIR: 0x4022be0 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc--5088---5087-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
---5087--    object doesn't have a symbol table
---5087-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
---5087--    object doesn't have a symbol table
-==5087== WARNING: new redirection conflicts with existing -- ignoring it
---5087--     old: 0x04022e10 (strlen              ) R-> (0000.0) 0x580c9ce2 ???
---5087--     new: 0x04022e10 (strlen              ) R-> (2007.0) 0x0483f060 strlen
---5087-- REDIR: 0x401f5f0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ffd0 (strcmp)
---5087-- REDIR: 0x4023370 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4843a20 (me--5088-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
---5088--   Considering /usr/lib/x86_64-linux-gnu/libc-2.31.--5087--5088--   .. CRC mismatch (computed 86b78530 wanted e380f01c)
---5088--   Considering /lib/x86_64-linux-gnu/libc-2.31.so ..
---5088--   .. CRC mismatch (computed 86b78530 wanted e380f01c)
---5088--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.31.so ..
---5088--   .. CRC is valid
---5088-- REDIR: 0x48f6600 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5088-- REDIR: 0x48f5900 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5088-- REDIR: 0x48f6930 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5088-- REDIR: 0x48f5220 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5088-- REDIR: 0x48f5960 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5088-- REDIR: 0x48f7dd0 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5088-- REDIR: 0x4912e60 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5088-- REDIR: 0x49129a0 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5088-- REDIR--5087-- REDIR: 0x496f600 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e900 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f930 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e220 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e960 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x4970dd0 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x498be60 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x498b9a0 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f760 (libc.so.6:mempcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f590 (libc.so.6:bcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e890 (libc.so.6:strncmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e2d0 (libc.so.6:strcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f6c0 (libc.so.6:memset) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x498b960 (libc.so.6:wcschr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e7f0 (libc.so.6:strnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e3b0 (libc.so.6:strcspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f980 (libc.so.6:strncasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e350 (libc.so.6:strcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496fad0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x498d0d0 (libc.so.6:wcsnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x498b9e0 (libc.so.6:wcscpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e9a0 (libc.so.6:strpbrk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e280 (libc.so.6:index) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496e7b0 (libc.so.6:strlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x4977d20 (libc.so.6:memrchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f9d0 (libc.so.6:strcasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f550 (libc.so.6:memchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x498bab0 (libc.so.6:wcslen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496ec60 (libc.so.6:strspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f8d0 (libc.so.6:stpncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f870 (libc.so.6:stpcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x4970e10 (libc.so.6:strchrnul) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496fa20 (libc.so.6:strncasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x49fc8e0 (libc.so.6:__memcpy_chk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x496f470 (libc.so.6:strstr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---5087-- REDIR: 0x4a57490 (libc.so.6:__strrchr_avx2) redirected to 0x483ea10 (rindex)
---5087-- REDIR: 0x4a52b60 (l--5088-- REDIR: 0x48f6120 (libc.so.6:__GI_strstr) redirected to 0x4843ca0 (__strstr_sse2)
---5088-- REDIR: 0x48f1000 (libc.so.6:realloc) redirected to 0x483df30 (realloc)
---5088-- REDIR: 0x49db044 (libc.so.6:__strcasecmp_l_avx) redirected to 0x483fab0 (strcasecmp_l)
---5088-- REDIR: 0x49e0890 (libc.so.6:__stpcpy_avx2) redirected to 0x4842300 (stpcpy)
---5088-- REDIR: 0x49e1af0 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x48428e0 (memset)
---5088-- REDIR: 0x49de800 (libc.so.6:__strnlen_avx2) redirected to 0x483eee0 (strnlen)
-==5088== 
-==5088== FILE DESCRIPTORS: 2 open at exit.
-==5088== Open file descriptor 4: /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/valgrind-out.txt
-==5088==    <inherited from parent>
-==5088== 
-==5088== Open file descriptor 3: /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/valgrind-out.txt
-==5088==    <inherited from parent>
-==5088== 
-==5088== 
-==5088== HEAP SUMMARY:
-==5088==     in use at exit: 0 bytes in 0 blocks
-==5088==   total heap usage: 269 allocs, 269 frees, 24,158 bytes allocated
-==5088== 
-==5088== All heap blocks were freed -- no leaks are possible
-==5088== 
-==5088== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-c.so.6:__memset_avx2_unaligned_erms) redirected to 0x48428e0 (memset)
---5087-- REDIR: 0x4a57800 (libc.so.6:__strnlen_avx2) redirected to 0x483eee0 (strnlen)
---5087-- REDIR: 0x496ac90 (libc.so.6:calloc) redirected to 0x483dce0 (calloc)
---5087-- REDIR: 0x498a560 (libc.so.6:__strstr_sse2_unaligned) redirected to 0x4843c20 (strstr)
---5087-- REDIR: 0x4a58ba0 (libc.so.6:__strcpy_avx2) redirected to 0x483f090 (strcpy)
---5087-- REDIR: 0x4a538e0 (libc.so.6:__memrchr_avx2) redirected to 0x48400d0 (memrchr)
-==5087== 
-==5087== FILE DESCRIPTORS: 3 open at exit.
-==5087== Open file descriptor 4: /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/valgrind-out.txt
-==5087==    <inherited from parent>
-==5087== 
-==5087== Open file descriptor 3: /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/valgrind-out.txt
-==5087==    <inherited from parent>
-==5087== 
-==5087== Open file descriptor 0:
-==5087==    <inherited from parent>
-==5087== 
-==5087== 
-==5087== HEAP SUMMARY:
-==5087==     in use at exit: 114,120 bytes in 47 blocks
-==5087==   total heap usage: 370 allocs, 323 frees, 154,069 bytes allocated
-==5087== 
-==5087== Searching for pointers to 47 not-freed blocks
-==5087== Checked 112,648 bytes
-==5087== 
-==5087== 4 bytes in 1 blocks are still reachable in loss record 1 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49C2DCF: re_node_set_init_copy (regex_internal.c:1033)
-==5087==    by 0x49C2DCF: create_cd_newstate (regex_internal.c:1681)
-==5087==    by 0x49C2DCF: re_acquire_state_context (regex_internal.c:1553)
-==5087==    by 0x49CD744: create_initial_state (regcomp.c:1050)
-==5087==    by 0x49CD744: re_compile_internal (regcomp.c:806)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 4 bytes in 1 blocks are still reachable in loss record 2 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49BBAD2: re_node_set_alloc (regex_internal.c:972)
-==5087==    by 0x49BBAD2: register_state (regex_internal.c:1574)
-==5087==    by 0x49C2F75: create_cd_newstate (regex_internal.c:1737)
-==5087==    by 0x49C2F75: re_acquire_state_context (regex_internal.c:1553)
-==5087==    by 0x49CD744: create_initial_state (regcomp.c:1050)
-==5087==    by 0x49CD744: re_compile_internal (regcomp.c:806)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 4 bytes in 1 blocks are possibly lost in loss record 3 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129F68: ??? (in /usr/bin/grep)
-==5087==    by 0x10DDFE: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 4 bytes in 1 blocks are indirectly lost in loss record 4 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49C2DCF: re_node_set_init_copy (regex_internal.c:1033)
-==5087==    by 0x49C2DCF: create_cd_newstate (regex_internal.c:1681)
-==5087==    by 0x49C2DCF: re_acquire_state_context (regex_internal.c:1553)
-==5087==    by 0x49CD744: create_initial_state (regcomp.c:1050)
-==5087==    by 0x49CD744: re_compile_internal (regcomp.c:806)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10E877: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 4 bytes in 1 blocks are indirectly lost in loss record 5 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49BBAD2: re_node_set_alloc (regex_internal.c:972)
-==5087==    by 0x49BBAD2: register_state (regex_internal.c:1574)
-==5087==    by 0x49C2F75: create_cd_newstate (regex_internal.c:1737)
-==5087==    by 0x49C2F75: re_acquire_state_context (regex_internal.c:1553)
-==5087==    by 0x49CD744: create_initial_state (regcomp.c:1050)
-==5087==    by 0x49CD744: re_compile_internal (regcomp.c:806)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10E877: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 16 bytes in 1 blocks are still reachable in loss record 6 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49CCB3A: analyze (regcomp.c:1169)
-==5087==    by 0x49CCB3A: re_compile_internal (regcomp.c:795)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 16 bytes in 1 blocks are still reachable in loss record 7 of 38
-==5087==    at 0x483B723: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x483E017: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49BBBC3: register_state (regex_internal.c:1589)
-==5087==    by 0x49C2F75: create_cd_newstate (regex_internal.c:1737)
-==5087==    by 0x49C2F75: re_acquire_state_context (regex_internal.c:1553)
-==5087==    by 0x49CD744: create_initial_state (regcomp.c:1050)
-==5087==    by 0x49CD744: re_compile_internal (regcomp.c:806)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 16 bytes in 1 blocks are still reachable in loss record 8 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E2C: ??? (in /usr/bin/grep)
-==5087==    by 0x11D5FC: ??? (in /usr/bin/grep)
-==5087==    by 0x120CFC: ??? (in /usr/bin/grep)
-==5087==    by 0x10EB18: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 16 bytes in 1 blocks are still reachable in loss record 9 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E2C: ??? (in /usr/bin/grep)
-==5087==    by 0x11A5DB: ??? (in /usr/bin/grep)
-==5087==    by 0x11D715: ??? (in /usr/bin/grep)
-==5087==    by 0x120CFC: ??? (in /usr/bin/grep)
-==5087==    by 0x10EB18: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 16 bytes in 4 blocks are still reachable in loss record 10 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49C0C69: re_node_set_alloc (regex_internal.c:972)
-==5087==    by 0x49C0C69: calc_eclosure_iter (regcomp.c:1700)
-==5087==    by 0x49CD3B2: calc_eclosure (regcomp.c:1677)
-==5087==    by 0x49CD3B2: analyze (regcomp.c:1204)
-==5087==    by 0x49CD3B2: re_compile_internal (regcomp.c:795)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 16 bytes in 1 blocks are indirectly lost in loss record 11 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49CCB3A: analyze (regcomp.c:1169)
-==5087==    by 0x49CCB3A: re_compile_internal (regcomp.c:795)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10E877: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 16 bytes in 1 blocks are indirectly lost in loss record 12 of 38
-==5087==    at 0x483B723: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x483E017: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49BBBC3: register_state (regex_internal.c:1589)
-==5087==    by 0x49C2F75: create_cd_newstate (regex_internal.c:1737)
-==5087==    by 0x49C2F75: re_acquire_state_context (regex_internal.c:1553)
-==5087==    by 0x49CD744: create_initial_state (regcomp.c:1050)
-==5087==    by 0x49CD744: re_compile_internal (regcomp.c:806)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10E877: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 16 bytes in 4 blocks are indirectly lost in loss record 13 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49C0C69: re_node_set_alloc (regex_internal.c:972)
-==5087==    by 0x49C0C69: calc_eclosure_iter (regcomp.c:1700)
-==5087==    by 0x49CD3B2: calc_eclosure (regcomp.c:1677)
-==5087==    by 0x49CD3B2: analyze (regcomp.c:1204)
-==5087==    by 0x49CD3B2: re_compile_internal (regcomp.c:795)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10E877: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 36 bytes in 1 blocks are still reachable in loss record 14 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E2C: ??? (in /usr/bin/grep)
-==5087==    by 0x11D0E5: ??? (in /usr/bin/grep)
-==5087==    by 0x120CFC: ??? (in /usr/bin/grep)
-==5087==    by 0x10EB18: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 64 bytes in 1 blocks are still reachable in loss record 15 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49CC641: init_dfa (regcomp.c:859)
-==5087==    by 0x49CC641: re_compile_internal (regcomp.c:758)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 64 bytes in 1 blocks are still reachable in loss record 16 of 38
-==5087==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49CC678: init_dfa (regcomp.c:866)
-==5087==    by 0x49CC678: re_compile_internal (regcomp.c:758)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==50==5085== Invalid read of size 8
-==5085==    at 0x1097E4: delete_fd_array (in /mnt/c/Users/Dell_Fine/Documents/VS==5087== 64 bytes in 1 blocks are sti==5085==    by 0x1096E1: main (in /mn==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgri==5085==  Address 0x4a48050 is 8 bytes==5087==    by 0x49CCB5B: analyze==5085==    at 0x4==5087==    by 0x49CCB5B: re_compile_internal (regcomp.c:795)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 64 bytes in 1 blocks are still reachable in loss record 18 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/v==5085== 
-==5085== FILE DESCRIPTORS: 4 open at exit.
-==5085== Open file descriptor 3: /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/valgrind-out.txt
-==5085==    <inherited from parent>
-==5085== 
-==5085== Open file descriptor 2: /dev/pts/1
-==5085==    <inherited from parent>
-==5085== 
-==5085== Open file descriptor 1: /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/file2
-==5085==    at 0x4964A3B: dup2 (syscall-template.S:78)
-==5085==    by 0x109452: change_std_io (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109675: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085== 
-==5085== Open file descriptor 0: /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/file1
-==5085==    at 0x4964A3B: dup2 (syscall-template.S:78)
-==5085==    by 0x109425: change_std_io (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109675: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085== 
-==5085== 
-==5085== HEAP SUMMARY:
-==5085==     in use at exit: 0 bytes in 0 blocks
-==5085==   total heap usage: 5 allocs, 5 frees, 44 bytes allocated
-==5085== 
-==5085== All heap blocks were freed -- no leaks are possible
-==5085== 
-==5085== ERROR SUMMARY: 10 errors from 5 contexts (suppressed: 0 from 0)
-==5085== 
-==5085== 2 errors in context 1 of 5:
-==5085== Invalid read of size 8
-==5085==    at 0x1097E4: delete_fd_array (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x1096E1: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==  Address 0x4a48050 is 8 bytes after a block of size 8 alloc'd
-==5085==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5085==    by 0x10974C: create_fd_array (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109478: open_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109682: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085== 
-==5085== 
-==5085== 2 errors in context 2 of 5:
-==5085== Invalid read of size 8
-==5085==    at 0x109921: close_unused_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x1096B1: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==5085==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5085==    by 0x10974C: create_fd_array (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109478: open_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109682: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085== 
-==5085== 
-==5085== 2 errors in context 3 of 5:
-==5085== Invalid read of size 8
-==5085==    at 0x109901: close_unused_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x1096B1: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==5085==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5085==    by 0x10974C: create_fd_array (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109478: open_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109682: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085== 
-==5085== 
-==5085== 2 errors in context 4 of 5:
-==5085== Invalid read of size 8
-==5085==    at 0x10949A: open_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109682: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==5085==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5085==    by 0x10974C: create_fd_array (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109478: open_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109682: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085== 
-==5085== 
-==5085== 2 errors in context 5 of 5:
-==5085== Invalid write of size 8
-==5085==    at 0x10978A: create_fd_array (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109478: open_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109682: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==5085==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5085==    by 0x10974C: create_fd_array (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109478: open_pipes (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085==    by 0x109682: main (in /mnt/c/Users/Dell_Fine/Documents/VSCode/Curriculum/pipex_working/pipex)
-==5085== 
-==5085== ERROR SUMMARY: 10 errors from 5 contexts (suppressed: 0 from 0)
- main) (libc-start.c:308)
-==5087== 
-==5087== 128 bytes in 1 blocks are still reachable in loss record 29 of 38
-==5087==    at 0x483B723: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x483E017: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E59: ??? (in /usr/bin/grep)
-==5087==    by 0x11C518: ??? (in /usr/bin/grep)
-==5087==    by 0x11C8A4: ??? (in /usr/bin/grep)
-==5087==    by 0x1206C4: ??? (in /usr/bin/grep)
-==5087==    by 0x10EAB0: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 216 bytes in 1 blocks are still reachable in loss record 30 of 38
-==5087==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129F32: ??? (in /usr/bin/grep)
-==5087==    by 0x11CCBE: ??? (in /usr/bin/grep)
-==5087==    by 0x120CFC: ??? (in /usr/bin/grep)
-==5087==    by 0x10EB18: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 224 bytes in 1 blocks are still reachable in loss record 31 of 38
-==5087==    at 0x483B723: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x483E017: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49CDAB4: re_compile_internal (regcomp.c:750)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10EA5F: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 256 bytes in 1 blocks are still reachable in loss record 32 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E2C: ??? (in /usr/bin/grep)
-==5087==    by 0x10ED01: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 512 bytes in 4 blocks are still reachable in loss record 33 of 38
-==5087==    at 0x483B723: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x483E017: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E59: ??? (in /usr/bin/grep)
-==5087==    by 0x11D996: ??? (in /usr/bin/grep)
-==5087==    by 0x120CFC: ??? (in /usr/bin/grep)
-==5087==    by 0x10EB18: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 624 (224 direct, 400 indirect) bytes in 1 blocks are definitely lost in loss record 34 of 38
-==5087==    at 0x483B723: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x483E017: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x49CDAB4: re_compile_internal (regcomp.c:750)
-==5087==    by 0x49CDDCE: re_compile_pattern (regcomp.c:230)
-==5087==    by 0x10E877: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 2,336 bytes in 1 blocks are still reachable in loss record 35 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E2C: ??? (in /usr/bin/grep)
-==5087==    by 0x10E670: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 2,472 bytes in 1 blocks are still reachable in loss record 36 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E2C: ??? (in /usr/bin/grep)
-==5087==    by 0x1141B7: ??? (in /usr/bin/grep)
-==5087==    by 0x117BE3: ??? (in /usr/bin/grep)
-==5087==    by 0x10EACD: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 4,064 bytes in 1 blocks are still reachable in loss record 37 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E2C: ??? (in /usr/bin/grep)
-==5087==    by 0x12D464: _obstack_begin (in /usr/bin/grep)
-==5087==    by 0x1141D4: ??? (in /usr/bin/grep)
-==5087==    by 0x11755C: ??? (in /usr/bin/grep)
-==5087==    by 0x10EAFD: ??? (in /usr/bin/grep)
-==5087==    by 0x10D877: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== 102,408 bytes in 1 blocks are still reachable in loss record 38 of 38
-==5087==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==5087==    by 0x129E2C: ??? (in /usr/bin/grep)
-==5087==    by 0x10D955: ??? (in /usr/bin/grep)
-==5087==    by 0x48F30B2: (below main) (libc-start.c:308)
-==5087== 
-==5087== LEAK SUMMARY:
-==5087==    definitely lost: 224 bytes in 1 blocks
-==5087==    indirectly lost: 400 bytes in 13 blocks
-==5087==      possibly lost: 4 bytes in 1 blocks
-==5087==    still reachable: 113,492 bytes in 32 blocks
-==5087==         suppressed: 0 bytes in 0 blocks
-==5087== 
-==5087== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
- 
-==5086== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==7843== Memcheck, a memory error detector
+==7843== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==7843== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==7843== Command: ./pipex file1 grep\ pipe grep\ mal wc\ -l file2
+==7843== Parent PID: 7842
+==7843== 
+==7843== Invalid write of size 8
+==7843==    at 0x10978A: create_fd_array (pipex_utils.c:33)
+==7843==    by 0x109478: open_pipes (pipex.c:62)
+==7843==    by 0x109682: main (main.c:29)
+==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7843==    by 0x109478: open_pipes (pipex.c:62)
+==7843==    by 0x109682: main (main.c:29)
+==7843== 
+==7843== Invalid read of size 8
+==7843==    at 0x10949A: open_pipes (pipex.c:66)
+==7843==    by 0x109682: main (main.c:29)
+==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7843==    by 0x109478: open_pipes (pipex.c:62)
+==7843==    by 0x109682: main (main.c:29)
+==7843== 
+==7843== Invalid read of size 8
+==7845== Invalid read of size 8
+==7843==    at 0x109908: close_unused_pipes (pipex_utils.c:74)
+==7845==    at 0x1098C0: redir_pipes (pipex_utils.c:63)
+==7843==    by 0x1096B1: main (main.c:31)
+==7845==    by 0x109598: process_forks (pipex.c:89)
+==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7845==    by 0x10969D: main (main.c:30)
+==7845==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7845==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7845==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7843==    by 0x109478: open_pipes (pipex.c:62)
+==7846== Invalid read of size 8
+==7845==    by 0x109478: open_pipes (pipex.c:62)
+==7843==    by 0x109682: main (main.c:29)
+==7843== 
+==7846==    at 0x109874: redir_pipes (pipex_utils.c:59)
+==7845==    by 0x109682: main (main.c:29)
+==7845== 
+==7843== Invalid read of size 8
+==7846==    by 0x109598: process_forks (pipex.c:89)
+==7846==    by 0x10969D: main (main.c:30)
+==7843==    at 0x109928: close_unused_pipes (pipex_utils.c:75)
+==7843==    by 0x1096B1: main (main.c:31)
+==7846==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7846==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7846==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7845== Invalid read of size 8
+==7845==    at 0x109908: close_unused_pipes (pipex_utils.c:74)
+==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7846==    by 0x109478: open_pipes (pipex.c:62)
+==7844== Invalid read of size 8
+==7845==    by 0x1095AC: process_forks (pipex.c:90)
+==7845==    by 0x10969D: main (main.c:30)
+==7843==    by 0x109478: open_pipes (pipex.c:62)
+==7846==    by 0x109682: main (main.c:29)
+==7846== 
+==7844==    at 0x109908: close_unused_pipes (pipex_utils.c:74)
+==7845==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7843==    by 0x109682: main (main.c:29)
+==7843== 
+==7844==    by 0x1095AC: process_forks (pipex.c:90)
+==7845==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7846== Invalid read of size 8
+==7844==    by 0x10969D: main (main.c:30)
+==7845==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7845==    by 0x109478: open_pipes (pipex.c:62)
+==7846==    at 0x109908: close_unused_pipes (pipex_utils.c:74)
+==7844==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7845==    by 0x109682: main (main.c:29)
+==7845== 
+==7846==    by 0x1095AC: process_forks (pipex.c:90)
+==7844==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7845== Invalid read of size 8
+==7845==    at 0x109928: close_unused_pipes (pipex_utils.c:75)
+==7846==    by 0x10969D: main (main.c:30)
+==7846==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7844==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7844==    by 0x109478: open_pipes (pipex.c:62)
+==7845==    by 0x1095AC: process_forks (pipex.c:90)
+==7845==    by 0x10969D: main (main.c:30)
+==7846==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7846==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7844==    by 0x109682: main (main.c:29)
+==7844== 
+==7845==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7846==    by 0x109478: open_pipes (pipex.c:62)
+==7844== Invalid read of size 8
+==7844==    at 0x109928: close_unused_pipes (pipex_utils.c:75)
+==7845==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7845==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7846==    by 0x109682: main (main.c:29)
+==7846== 
+==7844==    by 0x1095AC: process_forks (pipex.c:90)
+==7845==    by 0x109478: open_pipes (pipex.c:62)
+==7845==    by 0x109682: main (main.c:29)
+==7846== Invalid read of size 8
+==7846==    at 0x109928: close_unused_pipes (pipex_utils.c:75)
+==7844==    by 0x10969D: main (main.c:30)
+==7845== 
+==7846==    by 0x1095AC: process_forks (pipex.c:90)
+==7846==    by 0x10969D: main (main.c:30)
+==7844==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7844==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7844==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7844==    by 0x109478: open_pipes (pipex.c:62)
+==7844==    by 0x109682: main (main.c:29)
+==7844== 
+==7846==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7846==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7846==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7846==    by 0x109478: open_pipes (pipex.c:62)
+==7846==    by 0x109682: main (main.c:29)
+==7846== 
+==7843== Invalid read of size 8
+==7843==    at 0x1097E5: delete_fd_array (pipex_utils.c:48)
+==7843==    by 0x1096E1: main (main.c:35)
+==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
+==7843==    by 0x109478: open_pipes (pipex.c:62)
+==7843==    by 0x109682: main (main.c:29)
+==7843== 
+==7843== 
+==7843== HEAP SUMMARY:
+==7843==     in use at exit: 16 bytes in 2 blocks
+==7843==   total heap usage: 5 allocs, 3 frees, 44 bytes allocated
+==7843== 
+==7843== 16 bytes in 2 blocks are definitely lost in loss record 1 of 1
+==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7843==    by 0x109789: create_fd_array (pipex_utils.c:33)
+==7843==    by 0x109478: open_pipes (pipex.c:62)
+==7843==    by 0x109682: main (main.c:29)
+==7843== 
+==7843== LEAK SUMMARY:
+==7843==    definitely lost: 16 bytes in 2 blocks
+==7843==    indirectly lost: 0 bytes in 0 blocks
+==7843==      possibly lost: 0 bytes in 0 blocks
+==7843==    still reachable: 0 bytes in 0 blocks
+==7843==         suppressed: 0 bytes in 0 blocks
+==7843== 
+==7843== For lists of detected and suppressed errors, rerun with: -s
+==7843== ERROR SUMMARY: 10 errors from 6 contexts (suppressed: 0 from 0)

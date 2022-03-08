@@ -28,7 +28,7 @@ int	**create_fd_array(int size)
 	if (!pipe_fd)
 		exit (EXIT_FAILURE);
 	i = 0;
-	while (i <= size)
+	while (i <= size)									// <= size??
 	{
 		pipe_fd[i] = (int *)malloc(2 * sizeof(int));
 		if (!pipe_fd)
@@ -40,8 +40,14 @@ int	**create_fd_array(int size)
 
 void	delete_fd_array(int **pipe_fd, int size)
 {
-	while (size >= 0)
-		free(pipe_fd[size--]);
+	int	i;
+
+	i = 1;
+	while (i < size)
+	{
+		free(pipe_fd[i]);
+		i++;
+	}
 	free(pipe_fd);
 }
 

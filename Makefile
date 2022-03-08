@@ -23,10 +23,10 @@ SRC		=	pipex.c \
 # OBJ		=	$(SRC:%.c=%.o)
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 VAL			:= valgrind
-VAL_FLAGS	:= --leak-check=full --show-leak-kinds=all --tool=memcheck --track-origins=yes --verbose --track-fds=yes --trace-children=yes --log-file=valgrind-out.txt
+VAL_FLAGS	:= --leak-check=full --show-leak-kinds=all --log-file=valgrind-out.txt
 ARGS		:= file1 "grep pipe" "grep mal" "wc -l" file2
 # --leak-check=full --show-leak-kinds=all --tool=memcheck --track-origins=yes --verbose --log-file=valgrind-out.txt
 # --leak-check=full --show-leak-kinds=all --tool=memcheck --track-origins=yes --verbose --track-fds=yes --trace-children=yes -s -q --log-file=valgrind-out.txt
