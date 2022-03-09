@@ -29,7 +29,7 @@ int	**allocate_fd_array(int pipes)
 	if (!pipe_fd)
 		exit (EXIT_FAILURE);
 	i = 0;
-	while (i < pipes)									// < segmentation fault
+	while (i < pipes)
 	{
 		pipe_fd[i] = malloc(sizeof(int) * 2);
 		if (!pipe_fd)
@@ -50,7 +50,7 @@ void	delete_fd_array(int **pipe_fd, int pipes)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (i < pipes)
 	{
 		free(pipe_fd[i]);

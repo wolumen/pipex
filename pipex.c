@@ -61,7 +61,7 @@ int	**open_pipes(int pipes)
 
 	pipe_fd = allocate_fd_array(pipes);
 	i = 0;
-	while (i < pipes)								// < bad file descriptor
+	while (i < pipes)
 	{
 		if (pipe(pipe_fd[i]) == -1)
 			perror("pipe");
