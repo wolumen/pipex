@@ -19,31 +19,39 @@ void	ft_error(int errno_num, char *str)
 	exit(EXIT_FAILURE);
 }
 
-int	**create_fd_array(int size)
+int	**allocate_fd_array(int pipes)
 {
 	int	**pipe_fd;
 	int	i;
 
-	pipe_fd = (int **)malloc(size * sizeof(int));
+	// printf("amount of pipes: %d\n", pipes);
+	pipe_fd = malloc(sizeof(int*) * pipes);
 	if (!pipe_fd)
 		exit (EXIT_FAILURE);
 	i = 0;
-	while (i <= size)									// <= size??
+	while (i < pipes)									// < segmentation fault
 	{
-		pipe_fd[i] = (int *)malloc(2 * sizeof(int));
+		pipe_fd[i] = malloc(sizeof(int) * 2);
 		if (!pipe_fd)
 			exit (EXIT_FAILURE);
 		i++;
 	}
+	// int j;
+    // for (i = 0; i < pipes; i++) {
+    //     for (j = 0; j < 2; j++) {
+    //         printf("%d ", pipe_fd[i][j]);
+    //     }
+    //     printf("\n");
+    // }
 	return (pipe_fd);
 }
 
-void	delete_fd_array(int **pipe_fd, int size)
+void	delete_fd_array(int **pipe_fd, int pipes)
 {
 	int	i;
 
 	i = 1;
-	while (i < size)
+	while (i < pipes)
 	{
 		free(pipe_fd[i]);
 		i++;
@@ -64,12 +72,12 @@ void	redir_pipes(int **pipe_fd, int size, int i)
 	}
 }
 
-void	close_unused_pipes(int **pipe_fd, int size)
+void	close_unused_pipes(int **pipe_fd, int pipes)
 {
 	int	i;
 
 	i = 0;
-	while (i <= size)
+	while (i < pipes)
 	{
 		close(pipe_fd[i][0]);
 		close(pipe_fd[i][1]);

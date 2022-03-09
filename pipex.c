@@ -54,27 +54,34 @@ void	change_std_io(char *infile, char *outfile)
 	close(fd);
 }
 
-int	**open_pipes(int size)
+int	**open_pipes(int pipes)
 {
 	int	**pipe_fd;
 	int	i;
 
-	pipe_fd = create_fd_array(size);
+	pipe_fd = allocate_fd_array(pipes);
 	i = 0;
-	while (i <= size)
+	while (i < pipes)								// < bad file descriptor
 	{
 		if (pipe(pipe_fd[i]) == -1)
-			ft_error(errno, "pipe");
+			perror("pipe");
 		i++;
 	}
+	// int j;
+    // for (i = 0; i < pipes; i++) {
+    //     for (j = 0; j < 2; j++) {
+    //         printf("%d ", pipe_fd[i][j]);
+    //     }
+    //     printf("\n");
+    // }
 	return (pipe_fd);
 }
 
-void	process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
+int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 {
 	int	*pids;
 	int	i;
-
+	// printf("amount of cmds: %d\n", size);
 	pids = (int *) malloc(size * sizeof(int));
 	if (!pids)
 		exit (EXIT_FAILURE);
@@ -92,5 +99,5 @@ void	process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 		}
 		i++;
 	}
-	free(pids);
+	return (pids);
 }

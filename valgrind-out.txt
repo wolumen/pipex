@@ -1,152 +1,25 @@
-==7843== Memcheck, a memory error detector
-==7843== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==7843== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==7843== Command: ./pipex file1 grep\ pipe grep\ mal wc\ -l file2
-==7843== Parent PID: 7842
-==7843== 
-==7843== Invalid write of size 8
-==7843==    at 0x10978A: create_fd_array (pipex_utils.c:33)
-==7843==    by 0x109478: open_pipes (pipex.c:62)
-==7843==    by 0x109682: main (main.c:29)
-==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7843==    by 0x109478: open_pipes (pipex.c:62)
-==7843==    by 0x109682: main (main.c:29)
-==7843== 
-==7843== Invalid read of size 8
-==7843==    at 0x10949A: open_pipes (pipex.c:66)
-==7843==    by 0x109682: main (main.c:29)
-==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7843==    by 0x109478: open_pipes (pipex.c:62)
-==7843==    by 0x109682: main (main.c:29)
-==7843== 
-==7843== Invalid read of size 8
-==7845== Invalid read of size 8
-==7843==    at 0x109908: close_unused_pipes (pipex_utils.c:74)
-==7845==    at 0x1098C0: redir_pipes (pipex_utils.c:63)
-==7843==    by 0x1096B1: main (main.c:31)
-==7845==    by 0x109598: process_forks (pipex.c:89)
-==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7845==    by 0x10969D: main (main.c:30)
-==7845==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7845==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7845==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7843==    by 0x109478: open_pipes (pipex.c:62)
-==7846== Invalid read of size 8
-==7845==    by 0x109478: open_pipes (pipex.c:62)
-==7843==    by 0x109682: main (main.c:29)
-==7843== 
-==7846==    at 0x109874: redir_pipes (pipex_utils.c:59)
-==7845==    by 0x109682: main (main.c:29)
-==7845== 
-==7843== Invalid read of size 8
-==7846==    by 0x109598: process_forks (pipex.c:89)
-==7846==    by 0x10969D: main (main.c:30)
-==7843==    at 0x109928: close_unused_pipes (pipex_utils.c:75)
-==7843==    by 0x1096B1: main (main.c:31)
-==7846==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7846==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7846==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7845== Invalid read of size 8
-==7845==    at 0x109908: close_unused_pipes (pipex_utils.c:74)
-==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7846==    by 0x109478: open_pipes (pipex.c:62)
-==7844== Invalid read of size 8
-==7845==    by 0x1095AC: process_forks (pipex.c:90)
-==7845==    by 0x10969D: main (main.c:30)
-==7843==    by 0x109478: open_pipes (pipex.c:62)
-==7846==    by 0x109682: main (main.c:29)
-==7846== 
-==7844==    at 0x109908: close_unused_pipes (pipex_utils.c:74)
-==7845==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7843==    by 0x109682: main (main.c:29)
-==7843== 
-==7844==    by 0x1095AC: process_forks (pipex.c:90)
-==7845==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7846== Invalid read of size 8
-==7844==    by 0x10969D: main (main.c:30)
-==7845==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7845==    by 0x109478: open_pipes (pipex.c:62)
-==7846==    at 0x109908: close_unused_pipes (pipex_utils.c:74)
-==7844==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7845==    by 0x109682: main (main.c:29)
-==7845== 
-==7846==    by 0x1095AC: process_forks (pipex.c:90)
-==7844==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7845== Invalid read of size 8
-==7845==    at 0x109928: close_unused_pipes (pipex_utils.c:75)
-==7846==    by 0x10969D: main (main.c:30)
-==7846==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7844==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7844==    by 0x109478: open_pipes (pipex.c:62)
-==7845==    by 0x1095AC: process_forks (pipex.c:90)
-==7845==    by 0x10969D: main (main.c:30)
-==7846==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7846==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7844==    by 0x109682: main (main.c:29)
-==7844== 
-==7845==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7846==    by 0x109478: open_pipes (pipex.c:62)
-==7844== Invalid read of size 8
-==7844==    at 0x109928: close_unused_pipes (pipex_utils.c:75)
-==7845==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7845==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7846==    by 0x109682: main (main.c:29)
-==7846== 
-==7844==    by 0x1095AC: process_forks (pipex.c:90)
-==7845==    by 0x109478: open_pipes (pipex.c:62)
-==7845==    by 0x109682: main (main.c:29)
-==7846== Invalid read of size 8
-==7846==    at 0x109928: close_unused_pipes (pipex_utils.c:75)
-==7844==    by 0x10969D: main (main.c:30)
-==7845== 
-==7846==    by 0x1095AC: process_forks (pipex.c:90)
-==7846==    by 0x10969D: main (main.c:30)
-==7844==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7844==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7844==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7844==    by 0x109478: open_pipes (pipex.c:62)
-==7844==    by 0x109682: main (main.c:29)
-==7844== 
-==7846==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7846==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7846==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7846==    by 0x109478: open_pipes (pipex.c:62)
-==7846==    by 0x109682: main (main.c:29)
-==7846== 
-==7843== Invalid read of size 8
-==7843==    at 0x1097E5: delete_fd_array (pipex_utils.c:48)
-==7843==    by 0x1096E1: main (main.c:35)
-==7843==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
-==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7843==    by 0x10974C: create_fd_array (pipex_utils.c:27)
-==7843==    by 0x109478: open_pipes (pipex.c:62)
-==7843==    by 0x109682: main (main.c:29)
-==7843== 
-==7843== 
-==7843== HEAP SUMMARY:
-==7843==     in use at exit: 16 bytes in 2 blocks
-==7843==   total heap usage: 5 allocs, 3 frees, 44 bytes allocated
-==7843== 
-==7843== 16 bytes in 2 blocks are definitely lost in loss record 1 of 1
-==7843==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7843==    by 0x109789: create_fd_array (pipex_utils.c:33)
-==7843==    by 0x109478: open_pipes (pipex.c:62)
-==7843==    by 0x109682: main (main.c:29)
-==7843== 
-==7843== LEAK SUMMARY:
-==7843==    definitely lost: 16 bytes in 2 blocks
-==7843==    indirectly lost: 0 bytes in 0 blocks
-==7843==      possibly lost: 0 bytes in 0 blocks
-==7843==    still reachable: 0 bytes in 0 blocks
-==7843==         suppressed: 0 bytes in 0 blocks
-==7843== 
-==7843== For lists of detected and suppressed errors, rerun with: -s
-==7843== ERROR SUMMARY: 10 errors from 6 contexts (suppressed: 0 from 0)
+==13414== Memcheck, a memory error detector
+==13414== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==13414== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==13414== Command: ./pipex file1 grep\ pipe grep\ mal wc\ -l file2
+==13414== Parent PID: 827
+==13414== 
+==13414== 
+==13414== HEAP SUMMARY:
+==13414==     in use at exit: 8 bytes in 1 blocks
+==13414==   total heap usage: 4 allocs, 3 frees, 44 bytes allocated
+==13414== 
+==13414== 8 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==13414==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==13414==    by 0x10978A: allocate_fd_array (pipex_utils.c:34)
+==13414==    by 0x109478: open_pipes (pipex.c:62)
+==13414==    by 0x109670: main (main.c:30)
+==13414== 
+==13414== LEAK SUMMARY:
+==13414==    definitely lost: 8 bytes in 1 blocks
+==13414==    indirectly lost: 0 bytes in 0 blocks
+==13414==      possibly lost: 0 bytes in 0 blocks
+==13414==    still reachable: 0 bytes in 0 blocks
+==13414==         suppressed: 0 bytes in 0 blocks
+==13414== 
+==13414== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

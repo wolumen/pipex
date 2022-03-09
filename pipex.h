@@ -30,10 +30,10 @@
 int		openfile(char *filename, int mode);
 void	change_std_io(char *infile, char *outfile);
 int		**open_pipes(int size);
-void	process_forks(int **pipe_fd, int size, char *argv[], char *envp[]);
+int		*process_forks(int **pipe_fd, int size, char *argv[], char *envp[]);
 // pipex_utils.c
 void	ft_error(int errno_num, char *str);
-int		**create_fd_array(int size);
+int		**allocate_fd_array(int size);
 void	delete_fd_array(int **pipe_fd, int size);
 void	close_unused_pipes(int **pipe_fd, int size);
 // ft_exec.c
