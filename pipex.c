@@ -79,8 +79,8 @@ int	**open_pipes(int pipes)
 
 int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 {
-	int	*pids;
-	int	i;
+	pid_t	*pids;
+	int		i;
 	// printf("amount of cmds: %d\n", size);
 	pids = (int *) malloc(size * sizeof(int));
 	if (!pids)

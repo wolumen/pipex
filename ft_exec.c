@@ -22,8 +22,8 @@ void	ft_exec(char *cmd, char *envp[])
 		path = args[0];
 	else
 		path = get_path(args[0], envp);
-	execve(path, args, envp);			// programm endet hier wenn execve ausgeführt werden kann
-	ft_error(errno, "execve");
+	if (execve(path, args, envp) == -1)						// programm endet hier wenn execve ausgeführt werden kann
+		ft_error(errno, "execve");
 }
 
 char	*get_path(char *cmd, char **env)
@@ -39,7 +39,7 @@ char	*get_path(char *cmd, char **env)
 	if (!env[i])
 		return (cmd);
 	path = env[i] + 5;
-	while (path && chr_in_str(path, ':') > -1)	// wenn : gefunden
+	while (path && chr_in_str(path, ':') > -1)			// wenn : gefunden
 	{
 		dir = str_ndup(path, chr_in_str(path, ':'));
 		bin = path_join(dir, cmd);
@@ -49,8 +49,9 @@ char	*get_path(char *cmd, char **env)
 		free(bin);
 		path += chr_in_str(path, ':') + 1;
 	}
-	// free irgendwas wenn cmd nicht existiert und return was??
-	exit(127);
+	write(2, cmd, chr_in_str(cmd, 0));
+	write(2, " - command not found\n", 21);
+	exit (127);
 }
 
 char	*path_join(char *path, char *bin)

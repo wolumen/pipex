@@ -14,8 +14,8 @@
 
 void	ft_error(int errno_num, char *str)
 {
-	printf("Errno: %d in fct %s\n", errno_num, str);
-	perror("Error in fct ");
+	printf("Errno %d in Function %s\n", errno_num, str);
+	perror("");
 	exit(EXIT_FAILURE);
 }
 
@@ -25,13 +25,13 @@ int	**allocate_fd_array(int pipes)
 	int	i;
 
 	// printf("amount of pipes: %d\n", pipes);
-	pipe_fd = malloc(sizeof(int*) * pipes);
+	pipe_fd = (int **)malloc(sizeof(int*) * pipes);
 	if (!pipe_fd)
 		exit (EXIT_FAILURE);
 	i = 0;
 	while (i < pipes)
 	{
-		pipe_fd[i] = malloc(sizeof(int) * 2);
+		pipe_fd[i] = (int *)malloc(sizeof(int) * 2);
 		if (!pipe_fd)
 			exit (EXIT_FAILURE);
 		i++;

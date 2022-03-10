@@ -16,8 +16,7 @@
 # include <stdio.h>			// für printf
 # include <fcntl.h>			// für open, 
 # include <stdlib.h>		// für EXIT_
-# include <unistd.h>		// für close, access, execve
-# include <string.h>		// strsplit..
+# include <unistd.h>		// für close, access, execve, pipe, fork
 # include <errno.h>
 # include <sys/stat.h>		// für S_IRWXU in open,
 # include <sys/types.h>

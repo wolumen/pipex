@@ -14,10 +14,10 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	int	**pipe_fd;
-	int	*pids;
-	int	i;
-	int	cmds;
+	int		**pipe_fd;
+	pid_t	*pids;
+	int		i;
+	int		cmds;
 
 	cmds = (argc - 3);
 	pipe_fd = NULL;
