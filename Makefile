@@ -15,7 +15,8 @@ NAME	=	pipex
 SRC		=	pipex.c \
 			main.c \
 			pipex_utils.c \
-			ft_exec.c 
+			ft_exec.c \
+			ft_here_doc.c
 
 # INCL	=	pipex.h
 

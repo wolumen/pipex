@@ -21,10 +21,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	cmds = (argc - 3);
 	if (argc < 5)
-	{
-		write(2, "ERROR ./pipex file1 \"cmd1\" \"cmd2\" file2\n", 67);
-		exit(EXIT_FAILURE);
-	}
+		exit(write(2, "Error: invalid arguments\n", 25));
 	change_std_io(argv[1], argv[argc - 1]);
 	pipe_fd = open_pipes(cmds - 1);
 	pids = process_forks(pipe_fd, cmds, argv, envp);
