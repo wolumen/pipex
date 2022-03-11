@@ -42,10 +42,11 @@ ${NAME}: ${OBJ}
 all: $(NAME)
 
 clean:
-	make clean -C ./libft
+	$(MAKE) clean -C ./libft
 	rm -f ${OBJ}
 
-fclean: clean
+fclean: 
+	$(MAKE) fclean -C ./libft
 	rm -f ${NAME}
 
 re: fclean all
