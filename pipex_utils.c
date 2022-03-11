@@ -12,9 +12,13 @@
 
 #include "pipex.h"
 
-void	ft_error(int errno_num, char *str)
+void	ft_error(char *str)
 {
-	printf("Errno %d in Function %s\n", errno_num, str);
+	write(2, "Error Number ", 13);
+	ft_putnbr_fd(errno, 2);
+	write(2, " in Function ", 13);
+	write(2, str, ft_strlen(str) + 1);
+	write(2, "\n", 1);
 	perror("");
 	exit(EXIT_FAILURE);
 }

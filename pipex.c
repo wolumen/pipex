@@ -19,24 +19,18 @@ int	openfile(char *filename, int mode)
 	if (mode == INFILE)
 	{
 		if (access(filename, F_OK) == -1)
-		{
-			perror("access F_OK");
-			return (0);
-		}
+			ft_error("access F_OK");
 		if (access(filename, R_OK) == -1)
-		{
-			perror("access R_OK");
-			return (0);
-		}
+			ft_error("access R_OK");
 		fd = open(filename, O_RDONLY);
 		if (fd == -1)
-			ft_error(errno, "open INFILE");
+			ft_error("open INFILE");
 	}
 	else
 	{
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (fd == -1)
-			ft_error(errno, "open OUTFILE");
+			ft_error("open OUTFILE");
 	}
 	return (fd);
 }
@@ -90,7 +84,7 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 	{
 		pids[i] = fork();
 		if (pids[i] == -1)
-			ft_error(errno, "fork");
+			ft_error("fork");
 		if (pids[i] == 0)
 		{
 			redir_pipes(pipe_fd, size, i);

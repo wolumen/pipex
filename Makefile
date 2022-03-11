@@ -15,12 +15,11 @@ NAME	=	pipex
 SRC		=	pipex.c \
 			main.c \
 			pipex_utils.c \
-			ft_exec.c \
-			libft_utils.c
+			ft_exec.c 
 
-# INCL	=	push_swap.h
+# INCL	=	pipex.h
 
-# OBJ		=	$(SRC:%.c=%.o)
+OBJ		=	$(SRC:%.c=%.o)
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror -g
@@ -33,20 +32,26 @@ ARGS		:= file1 "grep pipe" "grep mal" "wc -l" file2
 .PHONY: clean re 
 
 
-$(NAME): $(SRC) 
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+${NAME}: ${OBJ}
+	make bonus -sC ./libft
+# -sC		s -> make silent, no echo in terminal, C -> Directory
+	${CC} ${CFLAGS} ${OBJ} ./libft/libft.a -o ${NAME}
 
 
 all: $(NAME)
 
 clean:
-	rm -f $(NAME)
+	make clean -C ./libft
+	rm -f ${OBJ}
 
-re: clean all
+fclean: clean
+	rm -f ${NAME}
+
+re: fclean all
 
 test: re
 	./$(NAME) $(ARGS)
 
-memcheck: clean all
+memcheck: re
 	clear
 	$(VAL) $(VAL_FLAGS) ./$(NAME) $(ARGS)

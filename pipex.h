@@ -31,20 +31,26 @@ void	change_std_io(char *infile, char *outfile);
 int		**open_pipes(int size);
 int		*process_forks(int **pipe_fd, int size, char *argv[], char *envp[]);
 // pipex_utils.c
-void	ft_error(int errno_num, char *str);
+void	ft_error(char *str);
 int		**allocate_fd_array(int size);
 void	delete_fd_array(int **pipe_fd, int size);
 void	close_unused_pipes(int **pipe_fd, int size);
+void	redir_pipes(int **pipe_fd, int size, int i);
 // ft_exec.c
 void	ft_exec(char *cmd, char *envp[]);
 char	*get_path(char *cmd, char **env);
 char	*path_join(char *path, char *bin);
 int		chr_in_str(char *str, char c);
 // libft_utils.c
-char	**str_split(char *str, char sep);
-char	*str_ndup(char *str, unsigned int n);
-int		str_ncmp(char *str1, char *str2, int n);
-void	redir_pipes(int **pipe_fd, int size, int i);
+char	**ft_split(char *str, char sep);
+char	*ft_strndup(char *str, unsigned int n);
+int		ft_strncmp(char *str1, char *str2, int n);
+size_t	ft_strlen(const char *str);
+void	ft_putnbr_fd(int n, int fd);
+
+char	*ft_strdup(const char *str1);
+
+
 
 // enum error_handle
 // {

@@ -20,10 +20,9 @@ int	main(int argc, char *argv[], char *envp[])
 	int		cmds;
 
 	cmds = (argc - 3);
-	pipe_fd = NULL;
 	if (argc < 5)
 	{
-		write(STDERR_FILENO, "ERROR ./pipex file1 \"cmd1\" \"cmd2\" file2\n", 67);
+		write(2, "ERROR ./pipex file1 \"cmd1\" \"cmd2\" file2\n", 67);
 		exit(EXIT_FAILURE);
 	}
 	change_std_io(argv[1], argv[argc - 1]);

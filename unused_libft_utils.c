@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-char	**str_split(char *str, char sep)
+char	**ft_split(char *str, char sep)
 {
 	char	**tab;
 	int		count;
@@ -36,13 +36,13 @@ char	**str_split(char *str, char sep)
 		j = 0;
 		while (str[j] && str[j] != sep)
 			j++;
-		tab[i++] = str_ndup(str, j);
+		tab[i++] = ft_strndup(str, j);
 		str = str + j + 1;
 	}
 	return (tab);
 }
 
-char	*str_ndup(char *str, unsigned int n)
+char	*ft_strndup(char *str, unsigned int n)
 {
 	char			*duped;
 	unsigned int	i;
@@ -50,14 +50,14 @@ char	*str_ndup(char *str, unsigned int n)
 	i = 0;
 	duped = malloc(sizeof(char) * (n + 1));
 	if (duped == NULL)
-		ft_error(errno, "malloc str_ndup");
+		ft_error(errno, "malloc ft_strndup");
 	while (i < n)
 		duped[i++] = *str++;
 	duped[n] = 0;
 	return (duped);
 }
 
-int	str_ncmp(char *str1, char *str2, int n)
+int	ft_strncmp(char *str1, char *str2, int n)
 {
 	while (--n > 0 && *str1 && *str2 && *str1 == *str2)
 	{
