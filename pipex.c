@@ -88,7 +88,7 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 	// printf("amount of cmds: %d\n", size);
 	// printf("argv[2]: %s\n", argv[2]);
 	// printf("argv[start]: %s\n", argv[start]);
-	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
+	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
 		start = 3;
 	pids = (int *) malloc(size * sizeof(int));
 	if (!pids)

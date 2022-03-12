@@ -20,7 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	if (argc < 5)
 		exit(write(2, "Error: invalid arguments\n", 25));
-	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
+	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
 	{
 		ft_here_doc(argv[2]);
 		i = 3;

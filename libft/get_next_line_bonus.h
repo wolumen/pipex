@@ -1,43 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arosado- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jpreissn <jpreissn@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/23 16:09:47 by arosado-          #+#    #+#             */
-/*   Updated: 2021/10/23 16:09:54 by arosado-         ###   ########.fr       */
+/*   Created: 2021/12/21 09:24:58 by jpreissn          #+#    #+#             */
+/*   Updated: 2021/12/21 09:24:58 by jpreissn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
+# include <stdlib.h>
+# include <unistd.h>
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1048
+#  define BUFFER_SIZE 1
 # endif
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <stdio.h>
-# include <errno.h>
-# include <libgen.h>
-# include <stdlib.h>
+# ifndef FD_SIZE
+#  define FD_SIZE 1
+# endif
 
-typedef struct s_read
-{
-	char	temp;
-	int		r_total;
-	int		r_count;
-}		t_read;
-
-void	ft_putstr(char *str);
-char	*str_appendc(char *str, char c);
 char	*get_next_line(int fd);
-t_read	*new_read(void);
-size_t	ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *str1);
 char	*ft_strchr(const char *str, int c);
-
-
 
 #endif

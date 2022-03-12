@@ -43,7 +43,7 @@ void	redir_pipes(int **pipe_fd, int size, int i);
 // ft_exec.c
 void	ft_exec(char *cmd, char *envp[]);
 char	*cmd_path(char *cmd, char **env);
-char	*path_join(char *path, char *bin);
+char	*add_cmd_to_dir(char *path, char *bin);
 int		chr_in_str(char *str, char c);
 // ft_here_doc.c
 void	ft_here_doc(char *delim);

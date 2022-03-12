@@ -27,7 +27,7 @@ void	ft_here_doc(char *delim)
 		{
 			line = get_next_line(0);
 			if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
-				exit(-1);
+				exit(0);
 			write(pipe_fd[1], line, ft_strlen(line));
 		}
 	}

@@ -12,77 +12,69 @@
 
 #include "get_next_line_bonus.h"
 
-char	*find_last_index(char *str)
+static char	*return_next_line(char **s)
 {
-	char	*res;
-	int		i;
+	char	*out;
+	char	*tmp;
+	size_t	len;
 
-	res = malloc(sizeof(char));
-	if (res == NULL || str == NULL || ft_strlen(str) == 0)
-		return (NULL);
-	res[0] = '\0';
-	i = 0;
-	while (str[i] != '\0')
+	len = 0;
+	out = NULL;
+	while ((*s)[len] != '\n' && (*s)[len])
+		len++;
+	if ((*s)[len] == '\n')
 	{
-		res = str_appendc(res, str[i]);
-		if (str[i] == '\n' || str == NULL)
-			break ;
-		i++;
+		out = ft_substr(*s, 0, len + 1);
+		tmp = ft_strdup(*s + len + 1);
+		free(*s);
+		*s = tmp;
+		if (!**s)
+		{
+			free(*s);
+			*s = NULL;
+		}
+		return (out);
 	}
-	return (res);
+	out = ft_strdup(*s);
+	free(*s);
+	*s = NULL;
+	return (out);
 }
 
-char	*ft_strjoin(const char *s1, const char s2[])
+static char	*check_and_return(char **s, ssize_t n, int fd)
 {
-	char	*new;
-	int		i;
-	int		k;
-
-	if (s1 == NULL || s1 == NULL)
+	if (n < 0)
 		return (NULL);
-	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (new == NULL)
+	if (!n && (!s[fd] || !*s[fd]))
 		return (NULL);
-	i = -1;
-	while (s1[++i] != '\0')
-		new[i] = s1[i];
-	k = -1;
-	while (s2[++k] != '\0')
-		new[i + k] = s2[k];
-	new[i + k] = '\0';
-	return (new);
-}
-
-void	init_staticstr(char *str)
-{
-	str = (char *)malloc(sizeof(char));
-	str[0] = '\0';
+	return (return_next_line(&s[fd]));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
-	char		temp[BUFFER_SIZE + 1];
-	char		*res;
-	int			r_count;
+	char		*tmp;
+	char		*buf;
+	static char	*s[FD_SIZE];
+	ssize_t		n;
 
-	r_count = BUFFER_SIZE;
-	init_staticstr(str);
-	if (str == NULL)
-		str = (char *)malloc(sizeof(char));
-	if (fd < 0 || BUFFER_SIZE < 0 || str == NULL)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	while (!ft_strchr(str, '\n') && r_count == BUFFER_SIZE)
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
+	n = read(fd, buf, BUFFER_SIZE);
+	while (n > 0)
 	{
-		r_count = read(fd, &temp, BUFFER_SIZE);
-		if (r_count == -1)
-			return (NULL);
-		else if (r_count == 0)
+		buf[n] = '\0';
+		if (!s[fd])
+			s[fd] = ft_strdup("");
+		tmp = ft_strjoin(s[fd], buf);
+		free(s[fd]);
+		s[fd] = tmp;
+		if (ft_strchr(buf, '\n'))
 			break ;
-		temp[r_count] = '\0';
-		str = ft_strjoin(str, temp);
+		n = read(fd, buf, BUFFER_SIZE);
 	}
-	res = find_last_index(str);
-	str += ft_strlen(res);
-	return (res);
+	free(buf);
+	return (check_and_return(s, n, fd));
 }
