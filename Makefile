@@ -18,7 +18,7 @@ SRC		=	pipex.c \
 			ft_exec.c \
 			ft_here_doc.c
 
-# INCL	=	pipex.h
+INCL	=	pipex.h
 
 OBJ		=	$(SRC:%.c=%.o)
 
@@ -27,16 +27,16 @@ CFLAGS	=	-Wall -Wextra -Werror -g
 
 VAL			:= valgrind
 VAL_FLAGS	:= --leak-check=full --show-leak-kinds=all --log-file=valgrind-out.txt
+
 ARGS		:= file1 "grep pipe" "grep mal" "wc -l" file2
 ARGS2		:= here_doc END "grep pipe" "wc -l" file2
-# --leak-check=full --show-leak-kinds=all --tool=memcheck --track-origins=yes --verbose --log-file=valgrind-out.txt
-# --leak-check=full --show-leak-kinds=all --tool=memcheck --track-origins=yes --verbose --track-fds=yes --trace-children=yes -s -q --log-file=valgrind-out.txt
+
+
 .PHONY: clean re 
 
 
 ${NAME}: ${OBJ}
-	make bonus -sC ./libft
-# -sC		s -> make silent, no echo in terminal, C -> Directory
+	$(MAKE) bonus -sC ./libft
 	${CC} ${CFLAGS} ${OBJ} ./libft/libft.a -o ${NAME}
 
 
@@ -55,7 +55,7 @@ re: fclean all
 test: all
 	./$(NAME) $(ARGS)
 
-here: all
+here_doc: all
 	./$(NAME) $(ARGS2)
 
 memcheck: re

@@ -4,3 +4,4 @@ pipex
 ./pipex
 pipex-tester
 ./pipex-tester
+valgrind-out.txt
