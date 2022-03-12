@@ -28,6 +28,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g
 VAL			:= valgrind
 VAL_FLAGS	:= --leak-check=full --show-leak-kinds=all --log-file=valgrind-out.txt
 ARGS		:= file1 "grep pipe" "grep mal" "wc -l" file2
+ARGS2		:= here_doc END "grep pipe" "wc -l" file2
 # --leak-check=full --show-leak-kinds=all --tool=memcheck --track-origins=yes --verbose --log-file=valgrind-out.txt
 # --leak-check=full --show-leak-kinds=all --tool=memcheck --track-origins=yes --verbose --track-fds=yes --trace-children=yes -s -q --log-file=valgrind-out.txt
 .PHONY: clean re 
@@ -45,14 +46,17 @@ clean:
 	$(MAKE) clean -C ./libft
 	rm -f ${OBJ}
 
-fclean: 
+fclean: clean
 	$(MAKE) fclean -C ./libft
 	rm -f ${NAME}
 
 re: fclean all
 
-test: re
+test: all
 	./$(NAME) $(ARGS)
+
+here: all
+	./$(NAME) $(ARGS2)
 
 memcheck: re
 	clear

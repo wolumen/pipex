@@ -12,49 +12,56 @@
 
 #include "get_next_line_bonus.h"
 
-char	*ft_free(char *str)
+void	ft_putstr(char *str)
 {
-	free(str);
-	return (0);
+	while (*str != '\0')
+		write(1, str++, 1);
 }
 
-size_t	ft_strlen(const char *str)
+int	str_len(char *str)
 {
-	size_t	len;
+	int	i;
 
-	len = 0;
-	if (!str)
+	i = 0;
+	if (str == 0)
 		return (0);
-	while (str[len] != '\0')
-		len++;
-	return (len);
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*str_appendc(char *str, char c)
 {
-	char	*s3;
+	char	*temp;
 	int		i;
-	int		j;
 
-	if (!s1 && !s2)
+	temp = (char *)malloc(sizeof(char) * (str_len(str) + 2));
+	if (temp == NULL)
 		return (NULL);
 	i = 0;
-	j = 0;
-	s3 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!s3)
+	if (str != 0)
+	{
+		while (str[i] != '\0')
+		{
+			temp[i] = str[i];
+			i++;
+		}
+		free(str);
+	}
+	temp[i++] = c;
+	temp[i] = '\0';
+	return (temp);
+}
+
+t_read	*new_read(void)
+{
+	t_read	*new;
+
+	new = (t_read *)malloc(sizeof(t_read));
+	if (new == NULL)
 		return (NULL);
-	while (s1 && s1[i])
-	{
-		s3[i] = s1[i];
-		i++;
-	}
-	while (s2 && s2[j])
-	{
-		s3[i] = s2[j];
-		i++;
-		j++;
-	}
-	s3[i] = '\0';
-	free((void *)s1);
-	return (s3);
+	new->r_total = 0;
+	new->r_count = 0;
+	new->temp = '\0';
+	return (new);
 }

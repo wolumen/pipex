@@ -12,111 +12,77 @@
 
 #include "get_next_line_bonus.h"
 
-int		ft_check_for_n(char *leftover);
-char	*ft_line(char *leftover);
-int		ft_char_is_n(char c);
-char	*ft_after_n(char *leftover);
+char	*find_last_index(char *str)
+{
+	char	*res;
+	int		i;
+
+	res = malloc(sizeof(char));
+	if (res == NULL || str == NULL || ft_strlen(str) == 0)
+		return (NULL);
+	res[0] = '\0';
+	i = 0;
+	while (str[i] != '\0')
+	{
+		res = str_appendc(res, str[i]);
+		if (str[i] == '\n' || str == NULL)
+			break ;
+		i++;
+	}
+	return (res);
+}
+
+char	*ft_strjoin(const char *s1, const char s2[])
+{
+	char	*new;
+	int		i;
+	int		k;
+
+	if (s1 == NULL || s1 == NULL)
+		return (NULL);
+	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (new == NULL)
+		return (NULL);
+	i = -1;
+	while (s1[++i] != '\0')
+		new[i] = s1[i];
+	k = -1;
+	while (s2[++k] != '\0')
+		new[i + k] = s2[k];
+	new[i + k] = '\0';
+	return (new);
+}
+
+void	init_staticstr(char *str)
+{
+	str = (char *)malloc(sizeof(char));
+	str[0] = '\0';
+}
 
 char	*get_next_line(int fd)
 {
-	static char	*leftover[1024];
-	char		*buf;
-	char		*line;
-	int			bytes_read;
+	static char	*str;
+	char		temp[BUFFER_SIZE + 1];
+	char		*res;
+	int			r_count;
 
-	bytes_read = 1;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	r_count = BUFFER_SIZE;
+	init_staticstr(str);
+	if (str == NULL)
+		str = (char *)malloc(sizeof(char));
+	if (fd < 0 || BUFFER_SIZE < 0 || str == NULL)
 		return (NULL);
-	buf = malloc (BUFFER_SIZE + 1);
-	if (!buf)
-		return (NULL);
-	while (ft_check_for_n(leftover[fd]) == 0 && bytes_read != 0)
+	while (!ft_strchr(str, '\n') && r_count == BUFFER_SIZE)
 	{
-		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read == -1)
-			return (ft_free(buf));
-		buf[bytes_read] = '\0';
-		leftover[fd] = ft_strjoin(leftover[fd], buf);
+		r_count = read(fd, &temp, BUFFER_SIZE);
+		if (r_count == -1)
+			return (NULL);
+		else if (r_count == 0)
+			break ;
+		temp[r_count] = '\0';
+		str = ft_strjoin(str, temp);
 	}
-	free(buf);
-	line = ft_line(leftover[fd]);
-	leftover[fd] = ft_after_n(leftover[fd]);
-	return (line);
-}
-
-int	ft_check_for_n(char *leftover)
-{
-	int	i;
-
-	i = 0;
-	if (!leftover)
-		return (0);
-	while (leftover[i])
-	{
-		if (leftover[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*ft_line(char *leftover)
-{
-	int		i;
-	char	*line;
-
-	i = 0;
-	if (!leftover || !leftover[0])
-		return (NULL);
-	while (leftover[i] != '\0' && leftover[i] != '\n')
-		i++;
-	i += ft_char_is_n(leftover[i]);
-	line = malloc(i + 1);
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (leftover[i] != '\0' && leftover[i] != '\n')
-	{
-		line[i] = leftover[i];
-		i++;
-	}
-	if (leftover[i] == '\n')
-	{
-		line[i] = leftover[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
-int	ft_char_is_n(char c)
-{
-	if (c == '\n')
-		return (1);
-	return (0);
-}
-
-char	*ft_after_n(char *leftover)
-{
-	int		i;
-	int		j;
-	char	*after_newline;
-
-	i = 0;
-	j = 0;
-	if (!leftover)
-		return (NULL);
-	while (leftover[i] != '\0' && leftover[i] != '\n')
-		i++;
-	if (leftover[i] == '\0')
-		return (ft_free(leftover));
-	i = i + 1;
-	after_newline = malloc(ft_strlen(leftover) - i + 1);
-	if (!after_newline)
-		return (NULL);
-	while (leftover[i])
-		after_newline[j++] = leftover[i++];
-	after_newline[j] = '\0';
-	free(leftover);
-	return (after_newline);
+	res = find_last_index(str);
+	str += ft_strlen(res);
+	return (res);
 }

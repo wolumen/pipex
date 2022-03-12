@@ -12,15 +12,18 @@
 
 #include "pipex.h"
 
-void	ft_error(char *str)
+void	ft_error(int i, char *str)
 {
-	write(2, "Error Number ", 13);
-	ft_putnbr_fd(errno, 2);
-	write(2, " in Function ", 13);
-	write(2, str, ft_strlen(str) + 1);
-	write(2, "\n", 1);
-	perror("");
-	exit(EXIT_FAILURE);
+	if (i == -1)
+	{	
+		write(2, "Error Number ", 13);
+		ft_putnbr_fd(errno, 2);
+		write(2, " in Function ", 13);
+		write(2, str, ft_strlen(str) + 1);
+		write(2, "\n", 1);
+		perror("");
+		exit(EXIT_FAILURE);
+	}
 }
 
 int	**allocate_fd_array(int pipes)

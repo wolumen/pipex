@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpreissn <jpreissn@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -21,12 +21,12 @@ void	ft_exec(char *cmd, char *envp[])
 	if (chr_in_str(args[0], '/') > -1)
 		path = args[0];
 	else
-		path = get_path(args[0], envp);
+		path = cmd_path(args[0], envp);
 	if (execve(path, args, envp) == -1)						// programm endet hier wenn execve ausgeführt werden kann
-		ft_error("execve");
+		ft_error(-1, "execve");
 }
 
-char	*get_path(char *cmd, char **env)
+char	*cmd_path(char *cmd, char **env)
 {
 	char	*path;
 	char	*dir;
@@ -62,7 +62,7 @@ char	*path_join(char *path, char *bin)
 
 	joined = malloc(sizeof(char) * (chr_in_str(path, 0) + chr_in_str(bin, 0) + 2));
 	if (joined == NULL)
-		ft_error("joined malloc");
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (path[j])

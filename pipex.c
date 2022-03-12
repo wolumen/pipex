@@ -12,40 +12,47 @@
 
 #include "pipex.h"
 
-int	openfile(char *filename, int mode)
+int	open_file(char *filename, int mode, int i)
 {
 	int	fd;
 
 	if (mode == INFILE)
 	{
 		if (access(filename, F_OK) == -1)
-			ft_error("access F_OK");
+			ft_error(-1, "access F_OK");
 		if (access(filename, R_OK) == -1)
-			ft_error("access R_OK");
+			ft_error(-1, "access R_OK");
 		fd = open(filename, O_RDONLY);
-		if (fd == -1)
-			ft_error("open INFILE");
+		ft_error(fd, "open INFILE");
 	}
-	else
+	else if (i == 2)
 	{
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-		if (fd == -1)
-			ft_error("open OUTFILE");
+		ft_error(fd, "open OUTFILE");
+	}
+	else if (i == 3)
+	{
+		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0777);
+		ft_error(fd, "open OUTFILE");
 	}
 	return (fd);
 }
 
-void	change_std_io(char *infile, char *outfile)
+void	change_std_io(char *infile, char *outfile, int i)
 {
 	int	fd;
 
-	fd = openfile(infile, INFILE);
-	dup2(fd, STDIN_FILENO);
-	close(fd);
+	if (i == 2)
+	{	
+		fd = open_file(infile, INFILE, i);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
 
-	fd = openfile(outfile, OUTFILE);
+	fd = open_file(outfile, OUTFILE, i);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
+	// printf("in open file\n");
 }
 
 int	**open_pipes(int pipes)
@@ -58,7 +65,7 @@ int	**open_pipes(int pipes)
 	while (i < pipes)
 	{
 		if (pipe(pipe_fd[i]) == -1)
-			perror("pipe");
+			ft_error(-1, "pipe");
 		i++;
 	}
 	// int j;
@@ -75,7 +82,14 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 {
 	pid_t	*pids;
 	int		i;
+	int		start;
+
+	start = 2;
 	// printf("amount of cmds: %d\n", size);
+	// printf("argv[2]: %s\n", argv[2]);
+	// printf("argv[start]: %s\n", argv[start]);
+	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
+		start = 3;
 	pids = (int *) malloc(size * sizeof(int));
 	if (!pids)
 		exit (EXIT_FAILURE);
@@ -84,14 +98,26 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 	{
 		pids[i] = fork();
 		if (pids[i] == -1)
-			ft_error("fork");
+			ft_error(-1, "fork");
 		if (pids[i] == 0)
 		{
 			redir_pipes(pipe_fd, size, i);
 			close_unused_pipes(pipe_fd, size - 1);
-			ft_exec(argv[i + 2], envp);
+			ft_exec(argv[i + start], envp);
 		}
 		i++;
 	}
 	return (pids);
+}
+
+void	ft_wait(int cmds)
+{
+	int i;
+
+	i = 0;
+	while (i < cmds)
+	{	
+		wait(NULL);
+		i++;
+	}	
 }
