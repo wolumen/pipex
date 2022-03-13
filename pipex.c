@@ -82,14 +82,10 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 {
 	pid_t	*pids;
 	int		i;
-	int		start;
 
-	start = 2;
 	// printf("amount of cmds: %d\n", size);
 	// printf("argv[2]: %s\n", argv[2]);
 	// printf("argv[start]: %s\n", argv[start]);
-	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
-		start = 3;
 	pids = (int *) malloc(size * sizeof(int));
 	if (!pids)
 		exit (EXIT_FAILURE);
@@ -103,7 +99,7 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 		{
 			redir_pipes(pipe_fd, size, i);
 			close_unused_pipes(pipe_fd, size - 1);
-			ft_exec(argv[i + start], envp);
+			ft_exec(argv[i], envp);
 		}
 		i++;
 	}
