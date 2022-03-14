@@ -27,7 +27,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g
 
 VAL			:= valgrind
 VAL_FLAGS	:= --leak-check=full --show-leak-kinds=all --log-file=valgrind-out.txt
-
+# --trace-children=yes
 ARGS		:= file1 "grep pipe" "grep mal" "wc -l" file2
 ARGS2		:= here_doc END "grep pipe" "wc -l" file2
 

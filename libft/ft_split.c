@@ -82,7 +82,7 @@ char				**ft_split(char const *s, char c)
 			s = next;											
 		}
 	}
-	result[i] = 0;												// return eine Liste von pointer auf strings
+	result[i] = NULL;												// return eine Liste von pointer auf strings
 	return (result);
 }
 

@@ -27,8 +27,13 @@ void	ft_here_doc(char *delim)
 		{
 			line = get_next_line(0);
 			if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
+			{
+				if(line)
+					free(line);
 				exit(0);
+			}
 			write(pipe_fd[1], line, ft_strlen(line));
+			free(line);
 		}
 	}
 	else

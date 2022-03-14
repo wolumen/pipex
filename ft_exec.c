@@ -16,14 +16,22 @@ void	ft_exec(char *cmd, char *envp[])
 {
 	char	**args;
 	char	*path;
+	int		i;
 
 	args = ft_split(cmd, ' ');
 	if (chr_in_str(args[0], '/') > -1)
 		path = args[0];
 	else
 		path = cmd_path(args[0], envp);
-	if (execve(path, args, envp) == -1)						// programm endet hier wenn execve ausgeführt werden kann
-		ft_error(-1, "execve");
+	execve(path, args, envp);						// programm endet hier wenn execve ausgeführt werden kann
+	i = 0;
+	while(args[i])
+	{
+		if (args[i])
+			free(args[i]);
+		i++;
+	}
+	free(args);
 }
 
 char	*cmd_path(char *cmd, char **env)
@@ -51,7 +59,7 @@ char	*cmd_path(char *cmd, char **env)
 	}
 	write(STDERR_FILENO, cmd, ft_strlen(cmd));
 	write(STDERR_FILENO, " - command not found\n", 21);
-	exit (127);
+	return (cmd);
 }
 
 char	*add_cmd_to_dir(char *path, char *cmd)

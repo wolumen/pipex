@@ -99,7 +99,11 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 		{
 			redir_pipes(pipe_fd, size, i);
 			close_unused_pipes(pipe_fd, size - 1);
-			ft_exec(argv[i], envp);
+			ft_exec(argv[i], envp);	
+			fprintf(stderr, "ft_exec failed and I'm executed\n");		// if execve couldnt be executed	
+			delete_fd_array(pipe_fd, size -1);
+			free(pids);
+			exit (127);
 		}
 		i++;
 	}

@@ -60,10 +60,12 @@ void	delete_fd_array(int **pipe_fd, int pipes)
 	i = 0;
 	while (i < pipes)
 	{
-		free(pipe_fd[i]);
+		if (pipe_fd)
+			free(pipe_fd[i]);
 		i++;
 	}
-	free(pipe_fd);
+	if (pipe_fd)
+		free(pipe_fd);
 }
 
 void	redir_pipes(int **pipe_fd, int size, int i)

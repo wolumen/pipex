@@ -26,15 +26,13 @@ int	main(int argc, char *argv[], char *envp[])
 		i = 3;
 	}
 	else	
-	{
 		i = 2;												// argv[i] ist erster cmd
-	}
 	change_std_io(argv[1], argv[argc - 1], i);
 	pipe_fd = open_pipes(argc - i - 2);
 	pids = process_forks(pipe_fd, argc - i - 1, &argv[i], envp);
 	close_unused_pipes(pipe_fd, argc - i - 2);
 	ft_wait(argc - i - 1);											// wait cmds oder wait pids?
 	free(pids);
-	delete_fd_array(pipe_fd, argc - i - 2);
+	delete_fd_array(pipe_fd, argc - i - 2);							// free pipe_fd array
 	return (0);
 }
