@@ -61,3 +61,7 @@ here_doc: all
 memcheck: re
 	clear
 	$(VAL) $(VAL_FLAGS) ./$(NAME) $(ARGS)
+
+memcheck_here_doc: re
+	clear
+	$(VAL) $(VAL_FLAGS) ./$(NAME) $(ARGS2)

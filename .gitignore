@@ -5,3 +5,6 @@ pipex
 pipex-tester
 ./pipex-tester
 valgrind-out.txt
+pipex#1.c
+pipex#2.c
+pipex#3
