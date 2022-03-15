@@ -47,7 +47,7 @@ char	*cmd_path(char *cmd, char **env)
 	if (!env[i])
 		return (cmd);
 	path = env[i] + 5;
-	while (path && chr_str(path, ':') > -1)			// wenn : gefunden		// STEFFEN wird letzter Pfad in env nicht beachtet?
+	while (path && chr_str(path, ':') > -1)
 	{
 		dir = ft_strndup(path, chr_str(path, ':'));
 		bin = add_cmd_to_dir(dir, cmd);
@@ -59,7 +59,7 @@ char	*cmd_path(char *cmd, char **env)
 	}
 	write(STDERR_FILENO, cmd, ft_strlen(cmd));
 	write(STDERR_FILENO, " - command not found\n", 21);
-	return (cmd);
+	return (cmd);											// return cmd so if it's in the same directory it gets executed as well
 }
 
 char	*add_cmd_to_dir(char *path, char *cmd)
