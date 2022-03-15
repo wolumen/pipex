@@ -43,7 +43,7 @@ libft.a:
 all: $(NAME)
 
 clean:
-	$(MAKE) clean -C ./libft
+	$(MAKE) fclean -C ./libft
 	rm -f ${OBJ}
 
 fclean: clean
