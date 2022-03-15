@@ -17,11 +17,12 @@ size_t	ft_strlen(const char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')				
+	while (str[i] != '\0')
 	{
 		i++;
 	}
 	return (i);
 }
 
-// mit escape character! ABER Zählung fängt bei Index 0 an, darum ist der Return OHNE \0
+// mit escape character! ABER Zählung fängt bei Index 0 an, 
+// darum ist der Return OHNE \0

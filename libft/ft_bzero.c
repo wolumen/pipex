@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)		// The bzero() function places n 0 bytes in the area pointed to by s
+void	ft_bzero(void *s, size_t n)
 {
-	char *ptr;							// TODO warum braucheich einen char pointer?
+	char	*ptr;
 
-	ptr = s;							// geht nur weil *s void ist
+	ptr = s;
 	while (n)
 	{
-		*ptr++ = 0;						// // statt neuen char pointer clean gänge auch s casten = *(char *)s++ = 0;
+		*ptr++ = 0;
 		n--;
 	}
 }

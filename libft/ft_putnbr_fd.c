@@ -17,8 +17,7 @@ void	ft_putnbr_fd(int n, int fd)
 	long	nb;
 
 	nb = (long) n;
-
-	if (nb > 2147483647 || nb < -2147483648)			// asymetrisch
+	if (nb > 2147483647 || nb < -2147483648)
 		return ;
 	if (nb == -2147483648)
 	{
@@ -28,7 +27,7 @@ void	ft_putnbr_fd(int n, int fd)
 	if (nb < 0)
 	{
 		nb *= -1;
-		ft_putchar_fd('-', fd);							// setzt Vorzeichen extra
+		ft_putchar_fd('-', fd);
 	}
 	if (nb < 10)
 	{

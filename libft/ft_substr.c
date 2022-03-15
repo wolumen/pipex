@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len) // erstellt neuen String
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
 	size_t	i;
 
 	if (!s)
 		return (NULL);
-	if (ft_strlen(s) < start)						// wenn start outside string allocate memory für neuen leeren string der dann zurückgegeben wird
+	if (ft_strlen(s) < start)
 	{
 		substr = malloc(sizeof(char));
 		if (!substr)
@@ -27,8 +27,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len) // erstellt neuen
 		substr[0] = '\0';
 		return (substr);
 	}
-	if (start + len > ft_strlen(s))					// wenn substring über die Länge des strings laufen würde
-		len = ft_strlen(s) - start;					// wird Länge gekürzt
+	if (start + len > ft_strlen(s))
+		len = ft_strlen(s) - start;
 	substr = malloc(sizeof(char) * (len + 1));
 	if (!substr)
 		return (NULL);

@@ -12,17 +12,17 @@
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)					// ascii to integer
+int	ft_atoi(const char *str)
 {
 	int		i;
 	int		sign;
 	long	temp;
-	int		integer;							//keine malloc weil int schon bestimmte Größe hat (4 Byte)
+	int		integer;
 
 	temp = 0;
 	sign = 1;
 	i = 0;
-	while (((str[i] >= 9) && (str[i] <= 13)) || str[i] == 32) 		// testen ob Zeichen ein Space oder tab oder so ist
+	while (((str[i] >= 9) && (str[i] <= 13)) || str[i] == 32)
 		i++;
 	if (str[i] == '-')
 	{
@@ -36,7 +36,7 @@ int	ft_atoi(const char *str)					// ascii to integer
 		temp = temp * 10 + str[i] - '0';
 		i++;
 	}
-	integer = temp * sign;											// hier wenn Eingabewert ist keine Zahl, Rückgabewert 0 * sign = 0
+	integer = temp * sign;
 	return (integer);
 }
 

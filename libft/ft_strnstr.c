@@ -12,12 +12,9 @@
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t n)		// locates the	first occurrence of the	null-termi-nated 
-     																		// string needle in the string haystack, 
-																			// where not more than n characters are searched.
-																			// Chars after `\0' are not searched.
+char	*ft_strnstr(const char *haystack, const char *needle, size_t n)
 {
-	if (*needle == '\0')													// das gleiche wie !*needle. Und !needle -> needle == NULL
+	if (*needle == '\0')
 		return ((char *)haystack);
 	while (*haystack)
 	{
@@ -33,5 +30,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t n)		// locates
 	return (NULL);
 }
 
-// If little is an empty string, big is returned; if little occurs nowhere in big, NULL is returned; 
-// otherwise a pointer to the first	character of the first occurrence of little is returned.
+// If little is an empty string, big is returned; 
+// if little occurs nowhere in big, NULL is returned; 
+// otherwise a pointer to the first	
+// character of the first occurrence of little is returned.

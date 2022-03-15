@@ -12,17 +12,17 @@
 
 #include "libft.h"
 
-int	ft_strncmp(const char *str1, const char *str2, size_t n)	// it compares only the first n bytes of s1 and s2.
-{																// The comparison is done using unsigned characters
-	size_t	i;													// i muss size_t sein weil i und n in Zeile 22 verglichen werden
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
+{
+	size_t	i;
 
 	i = 0;
-	while (str1[i] == str2[i] && i < n && str1[i] != '\0')		// hört brim ersten Unterschied auf
+	while (str1[i] == str2[i] && i < n && str1[i] != '\0')
 		i++;
-	if (i == n || !str1 || !str2)								
-		return (0);												// returns  0 (false) if s1 and s2 are equal;
-	return ((unsigned char)str1[i] - (unsigned char)str2[i]);	// returns any other number (true) if s1 and s2 are NOT equal
-}																
+	if (i == n || !str1 || !str2)
+		return (0);
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+}
 
 // RETRUN:
 // 0	Die verglichenen Strings sind bis zum angegebenen Zeichen identisch

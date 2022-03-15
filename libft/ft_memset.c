@@ -12,8 +12,8 @@
 
 #include "libft.h"
 
-void	*ft_memset(void *str, int c, size_t n)		// setzt n Bytes in einem Array zu c
-{													// fängt vorne an 
+void	*ft_memset(void *str, int c, size_t n)
+{
 	unsigned char	*a;
 	unsigned int	i;
 
@@ -21,7 +21,7 @@ void	*ft_memset(void *str, int c, size_t n)		// setzt n Bytes in einem Array zu 
 	a = (unsigned char *)str;
 	while (i < n)
 	{
-		*a = (unsigned char) c;				
+		*a = (unsigned char) c;
 		a++;
 		i++;
 	}

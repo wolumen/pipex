@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void ft_putchar_fd(char c, int fd)		// setzt immer nur einen char. string schreiben -> putstr
+void	ft_putchar_fd(char c, int fd)
 {
-	write (fd, &c, 1);					// fd 0 = stdin, fd 1 = stdout, fd 2 = stderr
+	write (fd, &c, 1);
 }

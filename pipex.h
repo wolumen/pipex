@@ -22,8 +22,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>		// für waitpid
 
-// # include "./libft.h"		// STEFFEN warum geht das nicht, wie sonst libft Funktionen ohne Protoypen benutzen ? siehe Izenynn
-
 # define INFILE 0
 # define OUTFILE 1
 
@@ -40,14 +38,17 @@ int		**allocate_fd_array(int size);
 void	delete_fd_array(int **pipe_fd, int size);
 void	close_unused_pipes(int **pipe_fd, int size);
 void	redir_pipes(int **pipe_fd, int size, int i);
+
 // ft_exec.c
 void	ft_exec(char *cmd, char *envp[]);
 char	*cmd_path(char *cmd, char **env);
 char	*add_cmd_to_dir(char *path, char *bin);
-int		chr_in_str(char *str, char c);
+int		chr_str(char *str, char c);
+
 // ft_here_doc.c
 void	ft_here_doc(char *delim);
-// libft_utils.c
+
+// libft
 char	**ft_split(char *str, char sep);
 char	*ft_strndup(char *str, unsigned int n);
 int		ft_strncmp(char *str1, char *str2, int n);
@@ -56,7 +57,5 @@ void	ft_putnbr_fd(int n, int fd);
 char	*get_next_line(int fd);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t n);
 size_t	ft_strlen(const char *str);
-
-
 
 #endif

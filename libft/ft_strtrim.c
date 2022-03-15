@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_strtrim( char const *s1, char const *set)			// Set bedeutet jeder einzelne Char des Sets wird gesucht, nicht nur der gesamte String
+char	*ft_strtrim( char const *s1, char const *set)
 {
 	char	*trimmedstr;
 	size_t	i;
@@ -22,20 +22,21 @@ char	*ft_strtrim( char const *s1, char const *set)			// Set bedeutet jeder einze
 	if (!s1)
 		return (NULL);
 	start = 0;
-	while (s1[start] && ft_strchr(set, s1[start]))			
+	while (s1[start] && ft_strchr(set, s1[start]))
 		start++;
 	end = ft_strlen(s1);
-	while (end > start && ft_strchr(set, s1[end - 1]))				//warum -1? Escape character
+	while (end > start && ft_strchr(set, s1[end - 1]))
 		end--;
-	trimmedstr = (char *)malloc(sizeof(*s1) * (end - start + 1));		
+	trimmedstr = (char *)malloc(sizeof(*s1) * (end - start + 1));
 	if (!trimmedstr)
 		return (NULL);
 	i = 0;
 	while (start < end)
 		trimmedstr[i++] = s1[start++];
-	trimmedstr[i] = 0;											// = '\0' STEFFEN das andere geht nicht, oder geht aber 0 = 4 Byte and \0 1 Byte??
+	trimmedstr[i] = 0;
 	return (trimmedstr);
 }
 
-// Allocates (with malloc(3)) and returns a copy of ’s1’ with the characters specified in ’set’ removed
+// Allocates (with malloc(3)) and returns a copy of ’s1’ 
+// with the characters specified in ’set’ removed
 // from the beginning and the end of the string.

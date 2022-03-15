@@ -14,7 +14,7 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	if (!del)											// unnötig könnte man könnte auch if (del && lst) schreiben
+	if (!del)
 		return ;
 	if (lst)
 	{

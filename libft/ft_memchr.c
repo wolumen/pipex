@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)	// searches for the first occurrence of the character c (an unsigned char) in the first n bytes of the string pointed to, by the argument str.	
-{													// untersucht das was man rein gibt Byte für Byte									
+void	*ft_memchr(const void *s, int c, size_t n)
+{								
 	unsigned int	i;
-	unsigned char	*str;							// char nicht weil man einen char sucht sondern weil ein char ein Byte ist und man Byte für Byte sucht
+	unsigned char	*str;
 	unsigned char	d;
 
 	d = (unsigned char) c;

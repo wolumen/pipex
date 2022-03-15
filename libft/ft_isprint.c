@@ -14,7 +14,7 @@
 
 int	ft_isprint(int c)
 {								
-	if (c >= ' ' && c <= '~')		// space ist ein printable char aber Tab nicht
+	if (c >= ' ' && c <= '~')
 		return (1);
 	else
 		return (0);

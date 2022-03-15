@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-int	ft_isalnum(int c)					// is alphanumeric
+int	ft_isalnum(int c)
 {
-	if (c > 64 && c < 91)				// wenn A - Z return true/1
+	if (c > 64 && c < 91)
 		return (1);
-	else if (c > 96 && c < 123)			// wenn a -z return true/1
+	else if (c > 96 && c < 123)
 		return (1);
-	else if (c > 47 && c < 58)			// wenn 0 -9 return true/1
+	else if (c > 47 && c < 58)
 		return (1);
 	else
-		return (0);						// wenn alles andere return false/0
+		return (0);
 }

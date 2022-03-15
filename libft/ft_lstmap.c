@@ -19,18 +19,18 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!lst)
 		return (NULL);
-	new = ft_lstnew(f(lst->content));						// kompiert ein Element der Liste und wendet währenddessen die Funktionen an 
-	if (!new)												// wenn Fehler auftritt retrun NULL
+	new = ft_lstnew(f(lst->content));
+	if (!new)
 		return (NULL);
-	start = new;											// structzeiger auf den Anfang der neuen Liste
+	start = new;
 	while (lst)
 	{
 		if (lst->next)
 		{
-			new->next = ft_lstnew(f(lst->next->content));	// kompiert ein Element ans Ende der neuen Liste und wendet währenddessen die Funktionen an 
-			if (!(new->next))								// wie in Zeile23
+			new->next = ft_lstnew(f(lst->next->content));
+			if (!(new->next))
 			{
-				ft_lstclear(&new, del);						// lösche gegenwärtiges Element
+				ft_lstclear(&new, del);
 				return (NULL);
 			}
 			new = new->next;

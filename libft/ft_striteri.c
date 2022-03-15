@@ -18,10 +18,12 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 
 	i = 0;
 	if (!s || !f)
-		return;
+		return ;
 	while (*s)
 		f(i++, s++);
 }
 
-// strmapi & striteri wenden Funktionen auf jedes Element eines strings an. 
-// strmapi gibt das Ergebnis als neuen string zurück. striteri überscheibt string.
+// strmapi & striteri wenden Funktionen auf jedes 
+// Element eines strings an. 
+// strmapi gibt das Ergebnis als neuen string zurück. 
+// striteri überscheibt string.

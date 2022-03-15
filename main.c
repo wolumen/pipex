@@ -17,6 +17,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int		**pipe_fd;
 	pid_t	*pids;
 	int		i;
+	int		cmds;
 
 	if (argc < 5)
 		exit(write(2, "Error: invalid arguments\n", 25));
@@ -25,14 +26,15 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_here_doc(argv[2]);
 		i = 3;
 	}
-	else	
-		i = 2;												// argv[i] ist erster cmd
+	else
+		i = 2;														// argv[i] is first cmd
+	cmds = argc - i;
 	change_std_io(argv[1], argv[argc - 1], i);
-	pipe_fd = open_pipes(argc - i - 2);
-	pids = process_forks(pipe_fd, argc - i - 1, &argv[i], envp);
-	close_unused_pipes(pipe_fd, argc - i - 2);
-	ft_wait(argc - i - 1);											// wait cmds oder wait pids?
+	pipe_fd = open_pipes(cmds - 2);
+	pids = process_forks(pipe_fd, cmds - 1, &argv[i], envp);
+	close_unused_pipes(pipe_fd, cmds - 2);
+	ft_wait(cmds - 1);											// wait cmds oder wait pids?
 	free(pids);
-	delete_fd_array(pipe_fd, argc - i - 2);							// free pipe_fd array
+	delete_fd_array(pipe_fd, cmds - 2);							// free pipe_fd array
 	return (0);
 }

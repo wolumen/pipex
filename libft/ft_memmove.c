@@ -12,18 +12,18 @@
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)	// memmove copies source first to a buffer and then to the dest
-{															// safer then memcpy when memory from dest and src is overlapping
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
 	char	*d;
 	char	*s;
 
 	d = (char *)dest;
 	s = (char *)src;
-	if (s < d)												// Zieladresse kommt nach Sourceadresse
-	{														// dest könnte innerhalb source liegen
+	if (s < d)
+	{
 		while (n > 0)
 		{
-			d[n - 1] = s[n - 1];							// wird von hinten nach vorn geschrieben, somit wird sorc nicht beim kopieren überschrieben
+			d[n - 1] = s[n - 1];
 			n--;
 		}	
 	}
@@ -34,9 +34,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)	// memmove copies source
 	return (dest);
 }
 
-
-    //    The memmove() function copies n bytes from memory area src to
-    //    memory area dest.  The memory areas may overlap: copying takes
-    //    place as though the bytes in src are first copied into a
-    //    temporary array that does not overlap src or dest, and the bytes
-    //    are then copied from the temporary array to dest.
+// The memmove() function copies n bytes from memory area src to
+// memory area dest.  The memory areas may overlap: copying takes
+// place as though the bytes in src are first copied into a
+// temporary array that does not overlap src or dest, and the bytes
+// are then copied from the temporary array to dest.

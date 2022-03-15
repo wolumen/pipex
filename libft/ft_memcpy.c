@@ -12,17 +12,17 @@
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)		// n − is the number of bytes to be copied.
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	*d;					// char nicht weil man einen char sucht sondern weil ein char ein Byte ist und man Byte für Byte sucht
-	char	*s;
+	char			*d;
+	char			*s;
 	unsigned int	i;
 
 	i = 0;
-	d = (char *) dest;					// hier kein unsigned char weil es nicht im man steht
+	d = (char *) dest;
 	s = (char *) src;
-	if (dest == src || !n)				// dest == src ist Abfrage der Adressen beider
-		return (dest);					// steht nicht im Handbuch
+	if (dest == src || !n)
+		return (dest);
 	while (i < n)
 	{
 		d[i] = s[i];
@@ -36,7 +36,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)		// n − is the number o
 // int	main(void)
 // {
 // 	char 		str2[] = "Start stop";
-	
 // 	printf("Before ft_memcpy %s\n", str2);
 // 	ft_memcpy(str2, str2 + 6, 4 * sizeof(char));
 // 	printf("After ft_memcpy %s\n", str2);

@@ -48,11 +48,9 @@ void	change_std_io(char *infile, char *outfile, int i)
 		dup2(fd, STDIN_FILENO);
 		close(fd);
 	}
-
 	fd = open_file(outfile, OUTFILE, i);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	// printf("in open file\n");
 }
 
 int	**open_pipes(int pipes)
@@ -83,7 +81,7 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 	pid_t	*pids;
 	int		i;
 
-	// printf("amount of cmds: %d\n", size);
+	// printf("amount of childs: %d\n", size);
 	// printf("argv[2]: %s\n", argv[2]);
 	// printf("argv[start]: %s\n", argv[start]);
 	pids = (int *) malloc(size * sizeof(int));
@@ -99,8 +97,8 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 		{
 			redir_pipes(pipe_fd, size, i);
 			close_unused_pipes(pipe_fd, size - 1);
-			ft_exec(argv[i], envp);	
-			fprintf(stderr, "ft_exec failed and I'm executed\n");		// if execve couldnt be executed	
+			ft_exec(argv[i], envp);
+			fprintf(stderr, "ft_exec failed I'm executed\n");		// if execve couldnt be executed	
 			delete_fd_array(pipe_fd, size -1);
 			free(pids);
 			exit (127);
@@ -112,7 +110,7 @@ int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
 
 void	ft_wait(int cmds)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < cmds)

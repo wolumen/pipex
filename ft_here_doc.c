@@ -12,9 +12,26 @@
 
 #include "pipex.h"
 
-void	ft_here_doc(char *delim)
+void	get_lines(int pipe_fd[], char *delimeter)
 {
 	char	*line;
+
+	while (1)
+	{
+		line = get_next_line(0);
+		if (ft_strncmp(line, delimeter, ft_strlen(delimeter)) == 0)
+		{
+			if (line)
+				free(line);
+			exit(0);
+		}
+		write(pipe_fd[1], line, ft_strlen(line));
+		free(line);
+	}
+}
+
+void	ft_here_doc(char *delimeter)
+{
 	int		pipe_fd[2];
 	int		pid;
 
@@ -22,20 +39,7 @@ void	ft_here_doc(char *delim)
 		ft_error(-1, "Error pipe here_doc");
 	pid = fork();
 	if (pid == 0)
-	{
-		while (1)
-		{
-			line = get_next_line(0);
-			if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
-			{
-				if(line)
-					free(line);
-				exit(0);
-			}
-			write(pipe_fd[1], line, ft_strlen(line));
-			free(line);
-		}
-	}
+		get_lines(pipe_fd, delimeter);
 	else
 	{
 		dup2(pipe_fd[0], STDIN_FILENO);

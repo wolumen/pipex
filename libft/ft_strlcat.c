@@ -33,12 +33,13 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 		len--;
 	}
 	*dest = '\0';
-	return (dest_lenght + src_lenght);		// The function returns the length of the string strlcat() tried to create; 
-}											// if the return value is greater than or equal to size, data loss occurred.
+	return (dest_lenght + src_lenght);
+}
 
 // This function appends the null-terminated string src to the string dest, 
 // copying at most size-strlen(dest)-1 from src, 
-// and adds a terminating null byte to the result, unless size is less than strlen(dest).  
-// This function fixes the buffer overrun problem of strcat(), but the caller must still handle the
+// and adds a terminating null byte to the result, 
+// unless size is less than strlen(dest).  
+// This function fixes the buffer overrun problem of strcat(), 
+// but the caller must still handle the
 // possibility of data loss if size is too small.  
-

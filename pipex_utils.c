@@ -32,7 +32,7 @@ int	**allocate_fd_array(int pipes)
 	int	i;
 
 	// printf("amount of pipes: %d\n", pipes);
-	pipe_fd = (int **)malloc(sizeof(int*) * pipes);
+	pipe_fd = (int **)malloc(sizeof(int *) * pipes);
 	if (!pipe_fd)
 		exit (EXIT_FAILURE);
 	i = 0;

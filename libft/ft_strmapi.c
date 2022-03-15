@@ -33,4 +33,5 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 }
 
 // strmapi & striteri wenden Funktionen auf jedes Element eines strings an. 
-// strmapi gibt das Ergebnis als neuen string zurück. striteri überscheibt string.
+// strmapi gibt das Ergebnis als neuen string zurück. 
+// striteri überscheibt string.

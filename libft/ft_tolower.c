@@ -15,6 +15,6 @@
 int	ft_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
-		c += 32;					// von ASCII A zu a sind es 32 Zeichen, deswegen 32
+		c += 32;
 	return (c);
 }

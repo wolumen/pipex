@@ -19,13 +19,13 @@ void	ft_exec(char *cmd, char *envp[])
 	int		i;
 
 	args = ft_split(cmd, ' ');
-	if (chr_in_str(args[0], '/') > -1)
+	if (chr_str(args[0], '/') > -1)
 		path = args[0];
 	else
 		path = cmd_path(args[0], envp);
-	execve(path, args, envp);						// programm endet hier wenn execve ausgeführt werden kann
-	i = 0;
-	while(args[i])
+	execve(path, args, envp);						// programm ends when execve can be executed
+	i = 0;											// tidy up when error
+	while (args[i])
 	{
 		if (args[i])
 			free(args[i]);
@@ -47,15 +47,15 @@ char	*cmd_path(char *cmd, char **env)
 	if (!env[i])
 		return (cmd);
 	path = env[i] + 5;
-	while (path && chr_in_str(path, ':') > -1)			// wenn : gefunden		// STEFFEN wird letzter Pfand in env nicht beachtet?
+	while (path && chr_str(path, ':') > -1)			// wenn : gefunden		// STEFFEN wird letzter Pfad in env nicht beachtet?
 	{
-		dir = ft_strndup(path, chr_in_str(path, ':'));
+		dir = ft_strndup(path, chr_str(path, ':'));
 		bin = add_cmd_to_dir(dir, cmd);
 		free(dir);
 		if (access(bin, F_OK) == 0)
 			return (bin);
 		free(bin);
-		path += chr_in_str(path, ':') + 1;
+		path += chr_str(path, ':') + 1;
 	}
 	write(STDERR_FILENO, cmd, ft_strlen(cmd));
 	write(STDERR_FILENO, " - command not found\n", 21);
@@ -68,7 +68,7 @@ char	*add_cmd_to_dir(char *path, char *cmd)
 	int		i;
 	int		j;
 
-	bin = malloc(sizeof(char) * (chr_in_str(path, '\0') + chr_in_str(cmd, '\0') + 2));
+	bin = malloc(sizeof(char) * (chr_str(path, '\0') + chr_str(cmd, '\0') + 2));
 	if (bin == NULL)
 		return (NULL);
 	i = 0;
@@ -83,7 +83,7 @@ char	*add_cmd_to_dir(char *path, char *cmd)
 	return (bin);
 }
 
-int	chr_in_str(char *str, char c)
+int	chr_str(char *str, char c)
 {
 	int	i;
 
@@ -91,6 +91,6 @@ int	chr_in_str(char *str, char c)
 	while (str[i] && str[i] != c)
 		i++;
 	if (str[i] == c)
-		return (i);				// idx an der char erste mal gefunden
-	return (-1);				// wenn char nicht gefunden -1 zurück
+		return (i);				// idx where c occured first time
+	return (-1);
 }
