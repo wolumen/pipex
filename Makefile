@@ -20,6 +20,8 @@ SRC		=	pipex.c \
 
 INCL	=	pipex.h
 
+libft	= 	libft.a
+
 OBJ		=	$(SRC:%.c=%.o)
 
 CC		=	gcc
@@ -34,21 +36,22 @@ ARGS2		:= here_doc END "grep pipe" "wc -l" file2
 .PHONY: all clean fclean re 
 
 
-${NAME}: ${OBJ} libft.a
-	${CC} ${CFLAGS} ${OBJ} ./libft/libft.a -o ${NAME}
+${NAME}: ${libft} ${OBJ} 
+	${CC} ${CFLAGS} ${OBJ} ${libft} -o ${NAME}
 
 libft.a:
 	$(MAKE) bonus -sC ./libft
+	cp ./libft/libft.a ./
 
 all: $(NAME)
 
 clean:
-	$(MAKE) fclean -C ./libft
+	$(MAKE) clean -C ./libft
 	rm -f ${OBJ}
 
 fclean: clean
 	$(MAKE) fclean -C ./libft
-	rm -f ${NAME}
+	rm -f ${NAME} ${libft}
 
 re: fclean all
 
