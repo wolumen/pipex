@@ -29,7 +29,7 @@
 int		open_file(char *filename, int mode, int i);
 void	change_std_io(char *infile, char *outfile, int i);
 int		**open_pipes(int size);
-int		*process_forks(int **pipe_fd, int size, char *argv[], char *envp[]);
+int		*process_forks(int **pipe_fd, int size, char **argv, char **envp);
 void	ft_wait(int cmds);
 
 // pipex_utils.c
@@ -40,13 +40,15 @@ void	close_unused_pipes(int **pipe_fd, int size);
 void	redir_pipes(int **pipe_fd, int size, int i);
 
 // ft_exec.c
-void	ft_exec(char *cmd, char *envp[]);
+void	ft_exec(char *cmd, char **envp);
 char	*cmd_path(char *cmd, char **env);
 char	*add_cmd_to_dir(char *path, char *bin);
 int		chr_str(char *str, char c);
 
 // ft_here_doc.c
-void	ft_here_doc(char *delim);
+void	ft_here_doc(char *delimeter);
+void	get_lines(int *pipe_fd, char *delimeter);
+
 
 // libft
 char	**ft_split(char *str, char sep);

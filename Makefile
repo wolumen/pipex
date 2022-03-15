@@ -34,10 +34,11 @@ ARGS2		:= here_doc END "grep pipe" "wc -l" file2
 .PHONY: all clean fclean re 
 
 
-${NAME}: ${OBJ}
-	$(MAKE) bonus -sC ./libft
+${NAME}: ${OBJ} libft.a
 	${CC} ${CFLAGS} ${OBJ} ./libft/libft.a -o ${NAME}
 
+libft.a:
+	$(MAKE) bonus -sC ./libft
 
 all: $(NAME)
 

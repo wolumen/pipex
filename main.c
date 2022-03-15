@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, char **argv, char **envp)
 {
 	int		**pipe_fd;
 	pid_t	*pids;
@@ -27,14 +27,14 @@ int	main(int argc, char *argv[], char *envp[])
 		i = 3;
 	}
 	else
-		i = 2;														// argv[i] is first cmd
-	cmds = argc - i;
+		i = 2;														// argv[i] is first cmds
+	cmds = argc - i - 1;											// -1 for last file argument
 	change_std_io(argv[1], argv[argc - 1], i);
-	pipe_fd = open_pipes(cmds - 2);
-	pids = process_forks(pipe_fd, cmds - 1, &argv[i], envp);
-	close_unused_pipes(pipe_fd, cmds - 2);
-	ft_wait(cmds - 1);											// wait cmds oder wait pids?
+	pipe_fd = open_pipes(cmds - 1);									// -1 for one pipe less than commands
+	pids = process_forks(pipe_fd, cmds, &argv[i], envp);	
+	close_unused_pipes(pipe_fd, cmds - 1);
+	ft_wait(cmds);
 	free(pids);
-	delete_fd_array(pipe_fd, cmds - 2);							// free pipe_fd array
+	delete_fd_array(pipe_fd, cmds - 1);								// free pipe_fd array
 	return (0);
 }

@@ -76,7 +76,7 @@ int	**open_pipes(int pipes)
 	return (pipe_fd);
 }
 
-int	*process_forks(int **pipe_fd, int size, char *argv[], char *envp[])
+int	*process_forks(int **pipe_fd, int size, char **argv, char **envp)
 {
 	pid_t	*pids;
 	int		i;

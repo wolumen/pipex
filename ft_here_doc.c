@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-void	get_lines(int pipe_fd[], char *delimeter)
+void	get_lines(int *pipe_fd, char *delimeter)
 {
 	char	*line;
 

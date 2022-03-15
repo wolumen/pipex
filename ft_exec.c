@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-void	ft_exec(char *cmd, char *envp[])
+void	ft_exec(char *cmd, char **envp)
 {
 	char	**args;
 	char	*path;
