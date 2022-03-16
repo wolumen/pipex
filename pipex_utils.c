@@ -16,13 +16,13 @@ void	ft_error(int i, char *str)
 {
 	if (i == -1)
 	{	
-		write(2, "Error Number ", 13);
+		write(2, "errno ", 6);
 		ft_putnbr_fd(errno, 2);
-		write(2, " in Function ", 13);
+		write(2, " in Function: ", 14);
 		write(2, str, ft_strlen(str) + 1);
 		write(2, "\n", 1);
 		perror("");
-		exit(EXIT_FAILURE);
+		exit(errno);
 	}
 }
 

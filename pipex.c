@@ -76,7 +76,7 @@ int	**open_pipes(int pipes)
 	return (pipe_fd);
 }
 
-int	*process_forks(int **pipe_fd, int size, char **argv, char **envp)
+void	process_forks(int **pipe_fd, int size, char **argv, char **envp)
 {
 	pid_t	*pids;
 	int		i;
@@ -98,14 +98,14 @@ int	*process_forks(int **pipe_fd, int size, char **argv, char **envp)
 			redir_pipes(pipe_fd, size, i);
 			close_unused_pipes(pipe_fd, size - 1);
 			ft_exec(argv[i], envp);
-			// fprintf(stderr, "if ft_exec failed I'm executed\n");		// if execve couldnt be executed	
 			delete_fd_array(pipe_fd, size -1);
 			free(pids);
+			// fprintf(stderr, "if ft_exec failed I'm executed\n");	
 			exit (127);
 		}
 		i++;
 	}
-	return (pids);
+	free(pids);
 }
 
 void	ft_wait(int cmds)
