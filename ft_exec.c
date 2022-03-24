@@ -24,8 +24,8 @@ void	ft_exec(char *cmd, char **envp)
 	else
 		path = cmd_path(args[0], envp);
 	execve(path, args, envp);						// programm ends when execve can be executed
-	write(STDERR_FILENO, cmd, ft_strlen(cmd));
-	write(STDERR_FILENO, " - command not found\n", 21);
+	write(STDERR_FILENO, args[0], ft_strlen(cmd));
+	write(STDERR_FILENO, ": command not found\n", 21);
 	i = 0;											// tidy up when error
 	while (args[i])
 	{

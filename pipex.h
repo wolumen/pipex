@@ -13,13 +13,12 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <stdio.h>			// für printf
+# include <stdio.h>			// für printf, perror
 # include <fcntl.h>			// für open, 
 # include <stdlib.h>		// für EXIT_
 # include <unistd.h>		// für close, access, execve, pipe, fork
+# include <string.h>		// für strerror
 # include <errno.h>
-# include <sys/stat.h>		// für S_IRWXU in open,
-# include <sys/types.h>
 # include <sys/wait.h>		// für waitpid
 
 # define INFILE 0
@@ -54,9 +53,9 @@ char	**ft_split(char *str, char sep);
 char	*ft_strndup(char *str, unsigned int n);
 int		ft_strncmp(char *str1, char *str2, int n);
 size_t	ft_strlen(const char *str);
-void	ft_putnbr_fd(int n, int fd);
 char	*get_next_line(int fd);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t n);
-size_t	ft_strlen(const char *str);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putstr_fd(char const *s, int fd);
 
 #endif

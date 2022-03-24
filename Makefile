@@ -12,25 +12,37 @@
 
 NAME	=	pipex
 
-SRC		=	pipex.c \
-			main.c \
+			
+SRC		=	main.c \
+			pipex.c \
 			pipex_utils.c \
 			ft_exec.c \
 			ft_here_doc.c
 
+SRCB	=	main_bonus.c \
+			pipex.c \
+			pipex_utils.c \
+			ft_exec.c \
+			ft_here_doc.c
+
+OBJ		=	$(SRC:%.c=%.o)
+
+OBJB	=	$(SRCB:%.c=%.o)
+
+
 INCL	=	pipex.h
 
 libft	= 	libft.a
-
-OBJ		=	$(SRC:%.c=%.o)
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror -g
 
 VAL			:= valgrind
 VAL_FLAGS	:= --leak-check=full --show-leak-kinds=all --log-file=valgrind-out.txt
-ARGS		:= file1 "grep pipe" "grep mal" "wc -l" file2
-ARGS2		:= here_doc END "grep pipe" "wc -l" file2
+
+ARGS		:= file1 "grep pipe" "wc -l" file2
+ARGS2		:= file1 "grep pipe" "grep mal" "wc -l" file2
+ARGS3		:= here_doc END "grep pipe" "wc -l" file2
 
 
 .PHONY: all clean fclean re 
@@ -38,6 +50,9 @@ ARGS2		:= here_doc END "grep pipe" "wc -l" file2
 
 ${NAME}: ${libft} ${OBJ} 
 	${CC} ${CFLAGS} ${OBJ} ${libft} -o ${NAME}
+
+bonus:	${libft} ${OBJB}
+	${CC} ${CFLAGS} ${OBJB} ${libft} -o ${NAME}
 
 libft.a:
 	$(MAKE) bonus -sC ./libft
@@ -47,7 +62,7 @@ all: $(NAME)
 
 clean:
 	$(MAKE) clean -C ./libft
-	rm -f ${OBJ}
+	rm -f ${OBJ} ${OBJB}
 
 fclean: clean
 	$(MAKE) fclean -C ./libft
@@ -55,11 +70,14 @@ fclean: clean
 
 re: fclean all
 
-test: all
+test1: all
 	./$(NAME) $(ARGS)
 
-here_doc: all
+test2: bonus
 	./$(NAME) $(ARGS2)
+
+test3: bonus
+	./$(NAME) $(ARGS3)
 
 memcheck: re
 	clear

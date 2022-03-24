@@ -26,10 +26,10 @@ char	**ft_split(char *str, char sep)
 		if (str[j++] == sep)
 			count++;
 	}
-	tab = malloc(sizeof(char *) * (count + 2));		// warum + 2 ? -> 1str mehr als Delimeter und +1 für NULL ans Ende setzen
+	tab = malloc(sizeof(char *) * (count + 2));		// 1str mehr als Delimeter (weil Delimeter zwischen ZWEI str) und +1 für NULL ans Ende setzen
 	if (tab == NULL)
-		ft_error(errno, "malloc split");			// funktioniert Errno hier ? 
-	tab[count + 1] = NULL;							// NULL ans Ende des Arrays für execve, + 1 weil Index beginnt bei 0
+		return (NULL);
+	tab[count + 1] = NULL;							// NULL ans Ende des Arrays, + 1 weil Index beginnt bei 0
 	i = 0;
 	while (i < count + 1)
 	{
@@ -50,7 +50,7 @@ char	*ft_strndup(char *str, unsigned int n)
 	i = 0;
 	duped = malloc(sizeof(char) * (n + 1));
 	if (duped == NULL)
-		ft_error(errno, "malloc ft_strndup");
+		return (NULL);
 	while (i < n)
 		duped[i++] = *str++;
 	duped[n] = 0;

@@ -19,21 +19,21 @@ int	open_file(char *filename, int mode, int i)
 	if (mode == INFILE)
 	{
 		if (access(filename, F_OK) == -1)
-			ft_error(-1, "access F_OK");
+			ft_error(-1, filename);
 		if (access(filename, R_OK) == -1)
-			ft_error(-1, "access R_OK");
+			ft_error(-1, filename);
 		fd = open(filename, O_RDONLY);
-		ft_error(fd, "open INFILE");
+		ft_error(fd, filename);
 	}
 	else if (i == 2)
 	{
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-		ft_error(fd, "open OUTFILE");
+		ft_error(fd, filename);
 	}
 	else if (i == 3)
 	{
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0777);
-		ft_error(fd, "open OUTFILE");
+		ft_error(fd, filename);
 	}
 	return (fd);
 }
@@ -63,7 +63,7 @@ int	**open_pipes(int pipes)
 	while (i < pipes)
 	{
 		if (pipe(pipe_fd[i]) == -1)
-			ft_error(-1, "pipe");
+			ft_error(1, "pipe");
 		i++;
 	}
 	// int j;
