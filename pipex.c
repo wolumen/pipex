@@ -30,7 +30,7 @@ int	open_file(char *filename, int mode, int i)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		ft_error(fd, filename);
 	}
-	else if (i == 3)
+	else
 	{
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0777);
 		ft_error(fd, filename);
@@ -63,7 +63,7 @@ int	**open_pipes(int pipes)
 	while (i < pipes)
 	{
 		if (pipe(pipe_fd[i]) == -1)
-			ft_error(1, "pipe");
+			ft_error(-1, "pipe");
 		i++;
 	}
 	// int j;

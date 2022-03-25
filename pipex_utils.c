@@ -14,18 +14,13 @@
 
 void	ft_error(int i, char *str)
 {
-	if (i == 1)
-	{	
-		perror("Error:");
-		exit(errno);
-	}
-	else if (i == -1)
+	if (i == -1)
 	{
 		ft_putendl_fd(str, 2);
 		write(2, ": ", 2);
 		ft_putstr_fd(strerror(errno), 2);
 		write(2, "\n", 1);
-		exit(errno);
+		exit(EXIT_FAILURE);
 	}
 }
 

@@ -48,11 +48,11 @@ ARGS3		:= here_doc END "grep pipe" "wc -l" file2
 .PHONY: all clean fclean re 
 
 
-${NAME}: ${libft} ${OBJ} 
-	${CC} ${CFLAGS} ${OBJ} ${libft} -o ${NAME}
+$(NAME): $(libft) $(OBJ) 
+	$(CC) $(CFLAGS) $(OBJ) $(libft) -o $(NAME)
 
-bonus:	${libft} ${OBJB}
-	${CC} ${CFLAGS} ${OBJB} ${libft} -o ${NAME}
+bonus:	$(libft) $(OBJB)
+	$(CC) $(CFLAGS) $(OBJB) $(libft) -o $(NAME)
 
 libft.a:
 	$(MAKE) bonus -sC ./libft
@@ -62,21 +62,21 @@ all: $(NAME)
 
 clean:
 	$(MAKE) clean -C ./libft
-	rm -f ${OBJ} ${OBJB}
+	rm -f $(OBJ) $(OBJB)
 
 fclean: clean
-	$(MAKE) fclean -C ./libft
-	rm -f ${NAME} ${libft}
+	rm -f ./libft/$(libft)
+	rm -f $(NAME) $(libft)
 
-re: fclean all
+re: fclean bonus
 
 test1: all
 	./$(NAME) $(ARGS)
 
-test2: bonus
+test2: all bonus
 	./$(NAME) $(ARGS2)
 
-test3: bonus
+test3: all bonus
 	./$(NAME) $(ARGS3)
 
 memcheck: re
@@ -85,4 +85,4 @@ memcheck: re
 
 memcheck_here_doc: re
 	clear
-	$(VAL) $(VAL_FLAGS) ./$(NAME) $(ARGS2)
+	$(VAL) $(VAL_FLAGS) ./$(NAME) $(ARGS3)

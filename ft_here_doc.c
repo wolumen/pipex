@@ -36,7 +36,7 @@ void	ft_here_doc(char *delimeter)
 	int		pid;
 
 	if (pipe(pipe_fd) == -1)
-		ft_error(1, "Error pipe here_doc");
+		ft_error(-1, "Error pipe here_doc");
 	pid = fork();
 	if (pid == 0)
 		get_lines(pipe_fd, delimeter);
