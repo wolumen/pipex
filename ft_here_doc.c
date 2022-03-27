@@ -12,6 +12,29 @@
 
 #include "pipex.h"
 
+void	ft_here_doc(char *delimeter)
+{
+	int		pipe_fd[2];
+	int		pid;
+
+	if (pipe(pipe_fd) == -1)
+		ft_error(-1, "Error pipe here_doc");
+	pid = fork();
+	if (pid == 0)
+	{
+		close(pipe_fd[0]);
+		get_lines(pipe_fd, delimeter);
+		close(pipe_fd[1]);
+	}
+	else
+	{
+		dup2(pipe_fd[0], STDIN_FILENO);
+		wait(NULL);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+	}
+}
+
 void	get_lines(int *pipe_fd, char *delimeter)
 {
 	char	*line;
@@ -30,21 +53,4 @@ void	get_lines(int *pipe_fd, char *delimeter)
 	}
 }
 
-void	ft_here_doc(char *delimeter)
-{
-	int		pipe_fd[2];
-	int		pid;
-
-	if (pipe(pipe_fd) == -1)
-		ft_error(-1, "Error pipe here_doc");
-	pid = fork();
-	if (pid == 0)
-		get_lines(pipe_fd, delimeter);
-	else
-	{
-		dup2(pipe_fd[0], STDIN_FILENO);
-		wait(NULL);
-	}
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-}
+// hier close pipe am ende, child schließt aber keine pipes sondern exits nur. das könnte noch verbessert werden

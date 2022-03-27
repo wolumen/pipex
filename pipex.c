@@ -12,11 +12,11 @@
 
 #include "pipex.h"
 
-int	open_file(char *filename, int mode, int i)
+int	open_file(char *filename, int file, int i)
 {
 	int	fd;
 
-	if (mode == INFILE)
+	if (file == INFILE)
 	{
 		if (access(filename, F_OK) == -1)
 			ft_error(-1, filename);
@@ -97,7 +97,7 @@ void	process_forks(int **pipe_fd, int size, char **argv, char **envp)
 		{
 			redir_pipes(pipe_fd, size, i);
 			close_unused_pipes(pipe_fd, size - 1);
-			ft_exec(argv[i], envp);
+			ft_exec(argv[i], envp);									// hier geht der ganze cmd rein "wc -l"
 			delete_fd_array(pipe_fd, size -1);
 			free(pids);
 			// fprintf(stderr, "if ft_exec failed I'm executed\n");	
@@ -119,3 +119,7 @@ void	ft_wait(int cmds)
 		i++;
 	}	
 }
+
+
+// Z 108 free pids - brauche ich diese nicht um auf die children zu warten? besser ft_wait hier in Z 107?
+// !!! NO - Programm funktioniert dann nicht mehr
