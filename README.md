@@ -79,5 +79,5 @@ The Makefile has the following rules:
 | ``make fclean`` | Deletes the object files and the executable. |
 | ``make re`` | Makes ``fclean`` and ``make`` again. |
 | ``make bonus`` | Compiles with the bonus files. |
-| ``make test[1-3]`` | Doeas ``make`` and runs the program with provided arguments and infile. An outfile will be created. |
+| ``make test[1-3]`` | Runs the program with provided arguments and infile. An outfile will be created.  `make test1` addresses the mandatory part. `make test2` addresses the bonus with multiple pipes. `make test3` addresses the here_doc imlplementation.|
 | ``make memcheck`` | Runs the program with Valgrind and provided arguments. A logfile will be created. |
