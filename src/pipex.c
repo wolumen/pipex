@@ -27,12 +27,12 @@ int	open_file(char *filename, int file, int i)
 	}
 	else if (i == 2)
 	{
-		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 		ft_error(fd, filename);
 	}
 	else
 	{
-		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0777);
+		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0666);
 		ft_error(fd, filename);
 	}
 	return (fd);
@@ -66,13 +66,6 @@ int	**open_pipes(int pipes)
 			ft_error(-1, "pipe");
 		i++;
 	}
-	// int j;
-    // for (i = 0; i < pipes; i++) {
-    //     for (j = 0; j < 2; j++) {
-    //         printf("%d ", pipe_fd[i][j]);
-    //     }
-    //     printf("\n");
-    // }
 	return (pipe_fd);
 }
 
@@ -81,9 +74,6 @@ void	process_forks(int **pipe_fd, int size, char **argv, char **envp)
 	pid_t	*pids;
 	int		i;
 
-	// printf("amount of childs: %d\n", size);
-	// printf("argv[2]: %s\n", argv[2]);
-	// printf("argv[start]: %s\n", argv[start]);
 	pids = (int *) malloc(size * sizeof(int));
 	if (!pids)
 		exit (EXIT_FAILURE);
@@ -97,10 +87,9 @@ void	process_forks(int **pipe_fd, int size, char **argv, char **envp)
 		{
 			redir_pipes(pipe_fd, size, i);
 			close_unused_pipes(pipe_fd, size - 1);
-			ft_exec(argv[i], envp);									// hier geht der ganze cmd rein "wc -l"
+			ft_exec(argv[i], envp);
 			delete_fd_array(pipe_fd, size -1);
 			free(pids);
-			// fprintf(stderr, "if ft_exec failed I'm executed\n");	
 			exit (127);
 		}
 		i++;
@@ -119,7 +108,3 @@ void	ft_wait(int cmds)
 		i++;
 	}	
 }
-
-
-// Z 108 free pids - brauche ich diese nicht um auf die children zu warten? besser ft_wait hier in Z 107?
-// !!! NO - Programm funktioniert dann nicht mehr

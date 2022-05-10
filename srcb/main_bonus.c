@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	int		i;
 	int		cmds;
 
-	if (!(argc == 5))
+	if (argc < 5)
 		exit(write(2, "Error: invalid arguments\n", 25));
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
 	{
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	cmds = argc - i - 1;
 	change_std_io(argv[1], argv[argc - 1], i);
 	pipe_fd = open_pipes(cmds - 1);
-	process_forks(pipe_fd, cmds, &argv[i], envp);	
+	process_forks(pipe_fd, cmds, &argv[i], envp);
 	close_unused_pipes(pipe_fd, cmds - 1);
 	ft_wait(cmds);
 	delete_fd_array(pipe_fd, cmds - 1);

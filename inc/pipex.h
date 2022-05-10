@@ -13,13 +13,13 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <stdio.h>			// für printf, perror
-# include <fcntl.h>			// für open, 
-# include <stdlib.h>		// für EXIT_
-# include <unistd.h>		// für close, access, execve, pipe, fork
-# include <string.h>		// für strerror
+# include <stdio.h>			// printf, perror
+# include <fcntl.h>			// open, 
+# include <stdlib.h>		// EXIT_
+# include <unistd.h>		// close, access, execve, pipe, fork
+# include <string.h>		// strerror
 # include <errno.h>
-# include <sys/wait.h>		// für waitpid
+# include <sys/wait.h>		// wait, waitpid
 
 # define INFILE 0
 # define OUTFILE 1

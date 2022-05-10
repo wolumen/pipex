@@ -11,6 +11,7 @@
 # **************************************************************************** #
 
 NAME	=	libft.a
+
 SRC		=	ft_isalpha.c	\
 			ft_isdigit.c	\
 			ft_isalnum.c	\
@@ -58,15 +59,30 @@ SRCB	=	ft_lstnew.c \
 			ft_lstiter.c \
 			ft_lstmap.c
 
-OBJ		=	$(SRC:%.c=%.o)
+OBJ		=	$(SRC:%.c=$O%.o)
 
-OBJB	=	$(SRCB:%.c=%.o)
+OBJB	=	$(SRCB:%.c=$O%.o)
+
+S		=	src/
+O		=	obj/
+
+INC		=	inc/
+
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 
-.PHONY: clean fclean re 
+.PHONY: all clean fclean re so
 
+all: $(NAME) bonus
+
+$(OBJ): $O%.o: $S%.c
+	@mkdir -p $O
+	$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(OBJB): $O%.o:$S%.c
+	@mkdir -p $O
+	$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
@@ -74,16 +90,16 @@ $(NAME): $(OBJ)
 bonus: $(OBJ) $(OBJB)
 	ar rcs $(NAME) $(OBJ) $(OBJB)
 
-all: $(NAME)
-
 clean:
 	rm -f $(OBJ) $(OBJB)
+	rm -rf $O
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) libft.so
 
-re: fclean all
+re: fclean all re
 
 so:
 	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRC)
 	gcc -nostartfiles -shared -o libft.so $(OBJ) $(OBJB)
+

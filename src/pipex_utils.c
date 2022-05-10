@@ -29,7 +29,6 @@ int	**allocate_fd_array(int pipes)
 	int	**pipe_fd;
 	int	i;
 
-	// printf("amount of pipes: %d\n", pipes);
 	pipe_fd = (int **)malloc(sizeof(int *) * pipes);
 	if (!pipe_fd)
 		exit (EXIT_FAILURE);
@@ -41,13 +40,6 @@ int	**allocate_fd_array(int pipes)
 			exit (EXIT_FAILURE);
 		i++;
 	}
-	// int j;
-    // for (i = 0; i < pipes; i++) {
-    //     for (j = 0; j < 2; j++) {
-    //         printf("%d ", pipe_fd[i][j]);
-    //     }
-    //     printf("\n");
-    // }
 	return (pipe_fd);
 }
 

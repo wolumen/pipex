@@ -18,20 +18,20 @@ void	ft_exec(char *cmd, char **envp)
 	char	*path;
 	int		i;
 
-	args = ft_split(cmd, ' ');						// ganzer cmd "wc -l" wird in arrays aufgeteilt
- 	if (chr_str(args[0], '/') > -1)					// wenn schon cmd mit path dann direkt zurück ("./a.out")  und nur args[0] ohne -l zB
+	args = ft_split(cmd, ' ');
+	if (chr_str(args[0], '/') > -1)
 		path = args[0];
 	else
 		path = cmd_path(args[0], envp);
-	execve(path, args, envp);						// cmd path (ohne -l zB), ganzer cmd ("wc -l"), envp
+	execve(path, args, envp);
 	write(STDERR_FILENO, args[0], ft_strlen(cmd));
 	write(STDERR_FILENO, ": command not found\n", 21);
-	i = 0;											// tidy up when error
+	i = 0;
 	while (args[i])
 	{
 		if (args[i])
 			free(args[i]);
-		i++;										// kein extra free für NULL pointer nötig (letzten Listeneintrag der auf nichts zeigt)
+		i++;
 	}
 	free(args);
 }
@@ -46,22 +46,22 @@ char	*cmd_path(char *cmd, char **env)
 	i = 0;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
 		i++;
-	if (!env[i])											// wenn ich durch env gegangen bin und kein PATH gefunden habe
+	if (!env[i])
 		return (cmd);
 	path = env[i] + 5;
 	dir = ft_split(path, ':');
 	i = 0;
 	while (dir[i])
 	{
-			bin = add_cmd_to_dir(dir[i], cmd);
-			if (access(bin, F_OK) == 0)
-				return (bin);
-			free(bin);
-			free(dir[i]);
-			i++;
+		bin = add_cmd_to_dir(dir[i], cmd);
+		if (access(bin, F_OK) == 0)
+			return (bin);
+		free(bin);
+		free(dir[i]);
+		i++;
 	}
 	free(dir);
-	return (cmd);											// return cmd so if it's in the same directory it gets executed as well
+	return (cmd);
 }
 
 char	*add_cmd_to_dir(char *path, char *cmd)
@@ -93,6 +93,6 @@ int	chr_str(char *str, char c)
 	while (str[i] && str[i] != c)
 		i++;
 	if (str[i] == c)
-		return (i);				// idx where c occured first time
+		return (i);
 	return (-1);
 }

@@ -4,12 +4,10 @@ pipex
 ./pipex
 ./pipex-tester
 valgrind-out.txt
-pipex#1.c
-pipex#2.c
-pipex#3
 pipex.tar
 .pipex-tester
 .pipexMedic
 .pipextester
 .PIPEX_TESTER
 .pipex-tester_denisgodoy
+libft.a

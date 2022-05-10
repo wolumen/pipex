@@ -52,5 +52,3 @@ void	get_lines(int *pipe_fd, char *delimeter)
 		free(line);
 	}
 }
-
-// hier close pipe am ende, child schließt aber keine pipes sondern exits nur. das könnte noch verbessert werden
